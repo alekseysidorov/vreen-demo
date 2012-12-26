@@ -1,0 +1,3 @@
+[submodule "src/vreen"]
+	path = src/vreen
+	url = git://github.com/gorthauer/vreen.git
