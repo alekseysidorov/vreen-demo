@@ -59,8 +59,8 @@ private:
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterUncreatableType<PageStatus>("QtDesktop", 1, 0, "PageStatus", QLatin1String("Do not create objects of type pageStatus"));
-    qmlRegisterUncreatableType<PageOrientation>("QtDesktop", 1, 0, "PageOrientation", QLatin1String("Do not create objects of type pageOrientation"));
+    qmlRegisterUncreatableType<PageStatus>("vreen.ui", 1, 0, "PageStatus", QLatin1String("Do not create objects of type pageStatus"));
+    qmlRegisterUncreatableType<PageOrientation>("vreen.ui", 1, 0, "PageOrientation", QLatin1String("Do not create objects of type pageOrientation"));
 
     QApplication a(argc, argv);
     a.setApplicationName("vreen");
