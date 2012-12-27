@@ -22,13 +22,48 @@
 ** $VREEN_END_LICENSE$
 **
 ****************************************************************************/
-#include <QGuiApplication>
+#include <QApplication>
+#include <qqml.h>
 #include "declarativeview.h"
+
+class PageStatus
+{
+    Q_GADGET
+    Q_ENUMS(Status)
+public:
+    enum Status {
+        Inactive,
+        Activating,
+        Active,
+        Deactivating
+    };
+private:
+    PageStatus();
+};
+
+class PageOrientation
+{
+    Q_GADGET
+    Q_ENUMS(Orientation)
+public:
+    enum Orientation {
+        Automatic,
+        LockPortrait,
+        LockLandscape,
+        LockPrevious,
+        Manual
+    };
+private:
+    PageOrientation();
+};
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication a(argc, argv);
-    a.setApplicationName("example");
+    qmlRegisterUncreatableType<PageStatus>("QtDesktop", 1, 0, "PageStatus", QLatin1String("Do not create objects of type pageStatus"));
+    qmlRegisterUncreatableType<PageOrientation>("QtDesktop", 1, 0, "PageOrientation", QLatin1String("Do not create objects of type pageOrientation"));
+
+    QApplication a(argc, argv);
+    a.setApplicationName("vreen");
     a.setOrganizationName("vreen");
     a.setOrganizationDomain("https://github.com/gorthauer/vreen");
 
@@ -36,3 +71,5 @@ int main(int argc, char *argv[])
     view.showNormal();
     return a.exec();
 }
+
+#include "main.moc"

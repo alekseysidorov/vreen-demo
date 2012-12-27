@@ -1,3 +1,6 @@
 [submodule "src/vreen"]
 	path = src/vreen
 	url = git://github.com/gorthauer/vreen.git
+[submodule "qbs"]
+	path = qbs
+	url = git://github.com/qutIM/qbs-labs.git

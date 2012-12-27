@@ -5,7 +5,7 @@ Product {
 
     Group {
         fileTags: "install"
-        qbs.installPrefix: qbs.targetOS === 'mac' ? "vreen-demo.app/Contents/Resources" : "bin"
+        qbs.installPrefix: qbs.targetOS === 'mac' ? "vreen-client.app/Contents/Resources" : "bin"
         files: "vreen/qml"
     }
 }
