@@ -2,9 +2,8 @@ import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
 
-Page {
+Item {
     id: root
-
 
     TextEdit {
         id: login
