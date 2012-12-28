@@ -15,7 +15,7 @@ Item {
             id: sideBar
 
             color: syspal.window
-            Splitter.minimumWidth: 140
+            Splitter.minimumWidth: 180
             Splitter.expanding: false
         }
 

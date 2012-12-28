@@ -11,30 +11,28 @@ Item {
     height: 800
 
     property Item currentPage: loginPage
+    property Item previousPage
 
-    function centerize(item, width, height) {
-        //item.x = (Screen.width - width) / 2;
-        //item.y = (Screen.height - height) / 2;
-        item.width = width;
-        item.height = height;
+    function replace(item) {
+        previousPage = currentPage;
+        currentPage = item;
+    }
+
+    function showPage(item) {
+        currentPage.anchors.fill = app;
+        if (previousPage) {
+            state = "prepare";
+            state = "ready";
+        }
     }
 
     onCurrentPageChanged: {
-        //centerize(app, currentPage.implicitWidth, currentPage.implicitHeight);
+        showPage(currentPage);
     }
 
-    //TODO use states
-    Behavior on x {
-        NumberAnimation { duration: 500 }
-    }
-    Behavior on y {
-        NumberAnimation { duration: 500 }
-    }
-    Behavior on width {
-        NumberAnimation { duration: 500 }
-    }
-    Behavior on height {
-        NumberAnimation { duration: 500 }
+    Component.onCompleted: {
+        currentPage.visible = true;
+        showPage(currentPage);
     }
 
     LoginPage {
@@ -42,30 +40,14 @@ Item {
 
         implicitWidth: 400
         implicitHeight: 400
-
-        anchors.fill: parent
-        visible: currentPage == loginPage
-        opacity: visible
-
-        //TODO use states
-        Behavior on opacity {
-            NumberAnimation { duration: 500 }
-        }
+        visible: false
     }
     MainPage {
         id: mainPage
 
         implicitWidth: 800
         implicitHeight: 800
-
-        anchors.fill: parent
-        visible: currentPage == mainPage
-        opacity: visible
-
-        //TODO use states
-        Behavior on opacity {
-            NumberAnimation { duration: 500 }
-        }
+        visible: false
     }
 
     SystemPalette {
@@ -77,7 +59,7 @@ Item {
 
         onOnlineChanged: {
             if (online)
-               currentPage = mainPage;
+                replace(mainPage);
         }
 
         connection: conn
@@ -94,4 +76,67 @@ Item {
         clientId: 3220807
         displayType: OAuthConnection.Popup
     }
+
+    states: [
+        State {
+            name: "prepare"
+            PropertyChanges {
+                target: previousPage
+                visible: true
+                opacity: 1
+            }
+            PropertyChanges {
+                target: currentPage
+                visible: false
+                opacity: 0
+            }
+        },
+        State {
+            name: "ready"
+            PropertyChanges {
+                target: previousPage
+                visible: false
+                opacity: 0
+            }
+            PropertyChanges {
+                target: currentPage
+                visible: true
+                opacity: 1
+            }
+            //PropertyChanges {
+            //    target: app
+            //    width: currentPage.implicitWidth
+            //    height: currentPage.implicitHeight
+            //}
+        }
+    ]
+
+    transitions: [
+        Transition {
+            from: "prepare"
+            to: "ready"
+
+            SequentialAnimation {
+                ScriptAction { scriptName: "centerizeApp" }
+                NumberAnimation {
+                    target: app.previousPage;
+                    properties: "opacity"
+                    duration: 300;
+                    easing.type: Easing.InOutQuad
+                }
+                //NumberAnimation {
+                //    target: app
+                //    properties: "x,y,width,height"
+                //    duration: 250
+                //    easing.type: Easing.InOutQuad
+                //}
+                NumberAnimation {
+                    target: app.currentPage;
+                    properties: "opacity"
+                    duration: 300;
+                    easing.type: Easing.InOutQuad
+                }
+            }
+        }
+    ]
 }
