@@ -26,17 +26,26 @@
 #define DECLARATIVEVIEW_H
 
 #include <QQuickView>
+#include <QPointer>
 
-class DeclarativeView : public QQuickView
+class DeclarativeView : public QObject
 {
     Q_OBJECT
 public:
-    explicit DeclarativeView(QWindow *parent = 0);
-    
-signals:
-    
+    explicit DeclarativeView(QObject *parent = 0);
+
+    void setMainQmlFile(const QString &file);
+    void addImportPath(const QString &path);
+    QQmlEngine *engine() const;
+    QQmlContext *rootContext() const;
 public slots:
-    
+    void quit();
+protected slots:
+    void continueExecute();
+private:
+    QString m_currentFile;
+    QQmlEngine *m_engine;
+    QSharedPointer<QQmlComponent> m_component;
 };
 
 #endif // DECLARATIVEVIEW_H

@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("https://github.com/gorthauer/vreen");
 
     DeclarativeView view;
-    view.showNormal();
     return a.exec();
 }
 

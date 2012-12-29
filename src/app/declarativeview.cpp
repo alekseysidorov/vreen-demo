@@ -26,6 +26,9 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <QQmlEngine>
+#include <QQmlComponent>
+#include <QDebug>
 
 namespace  {
 
@@ -55,16 +58,67 @@ QString adjustPath(const QString &source)
 
 } //namespace
 
-DeclarativeView::DeclarativeView(QWindow *parent) :
-    QQuickView(parent)
+DeclarativeView::DeclarativeView(QObject *parent) :
+    QObject(parent),
+    m_engine(new QQmlEngine(this))
 {
-    //auto client = new Vreen::Client(this);
-    //auto con = new Vreen::OAuthConnection(1865463, client); //qutIM id
-    //con->setConnectionOption(Vreen::Connection::ShowAuthDialog, true);
-    //con->setDisplayType(Vreen::OAuthConnection::Popup);
-    //client->setConnection(con);
-    //rootContext()->setContextProperty("client", client);
+    connect(m_engine, SIGNAL(quit()), SLOT(quit()));
 
-    setSource(QUrl(adjustPath("qml/main.qml")));
-    setResizeMode(SizeRootObjectToView);
+    setMainQmlFile("qml/main.qml");
+}
+
+void DeclarativeView::setMainQmlFile(const QString &file)
+{
+    m_currentFile = adjustPath(file);
+
+    engine()->clearComponentCache();
+    m_component = QSharedPointer<QQmlComponent>(new QQmlComponent(m_engine, m_currentFile, this));
+    if (!m_component->isLoading()) {
+        continueExecute();
+    } else {
+        connect(m_component.data(), SIGNAL(statusChanged(QQmlComponent::Status)), this, SLOT(continueExecute()));
+    }
+}
+
+void DeclarativeView::addImportPath(const QString &path)
+{
+    engine()->addImportPath(path);
+}
+
+QQmlEngine *DeclarativeView::engine() const
+{
+    return m_engine;
+}
+
+QQmlContext *DeclarativeView::rootContext() const
+{
+    return m_engine->rootContext();
+}
+
+void DeclarativeView::quit()
+{
+}
+
+void DeclarativeView::continueExecute()
+{
+    disconnect(m_component.data(), SIGNAL(statusChanged(QQmlComponent::Status)), this, SLOT(continueExecute()));
+
+    if (m_component->isError()) {
+        QList<QQmlError> errorList = m_component->errors();
+        foreach (QQmlError error, errorList) {
+            qWarning() << error;
+        }
+        return;
+    }
+
+    QObject *obj = m_component->create();
+    obj->setParent(m_engine);
+
+    if (m_component->isError()) {
+        QList<QQmlError> errorList = m_component->errors();
+        foreach (QQmlError error, errorList) {
+            qWarning() << error;
+        }
+        return;
+    }
 }

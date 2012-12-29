@@ -4,11 +4,12 @@ import "components"
 import QtDesktop 1.0
 import QtQuick.Window 2.0
 
-Item {
+ApplicationWindow {
     id: app
 
     width: 800
     height: 800
+    visible: true
 
     property Item currentPage: loginPage
     property Item previousPage
@@ -19,10 +20,10 @@ Item {
     }
 
     function showPage(item) {
-        currentPage.anchors.fill = app;
+        currentPage.anchors.fill = container;
         if (previousPage) {
-            state = "prepare";
-            state = "ready";
+            container.state = "prepare";
+            container.state = "ready";
         }
     }
 
@@ -35,19 +36,88 @@ Item {
         showPage(currentPage);
     }
 
-    LoginPage {
-        id: loginPage
+    Rectangle {
+        id: container
 
-        implicitWidth: 400
-        implicitHeight: 400
-        visible: false
-    }
-    MainPage {
-        id: mainPage
+        anchors.fill: parent
 
-        implicitWidth: 800
-        implicitHeight: 800
-        visible: false
+        LoginPage {
+            id: loginPage
+
+            implicitWidth: 400
+            implicitHeight: 400
+            visible: false
+        }
+        MainPage {
+            id: mainPage
+
+            implicitWidth: 800
+            implicitHeight: 800
+            visible: false
+        }
+
+        states: [
+            State {
+                name: "prepare"
+                PropertyChanges {
+                    target: previousPage
+                    visible: true
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: currentPage
+                    visible: false
+                    opacity: 0
+                }
+            },
+            State {
+                name: "ready"
+                PropertyChanges {
+                    target: previousPage
+                    visible: false
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: currentPage
+                    visible: true
+                    opacity: 1
+                }
+                //PropertyChanges {
+                //    target: app
+                //    width: currentPage.implicitWidth
+                //    height: currentPage.implicitHeight
+                //}
+            }
+        ]
+
+        transitions: [
+            Transition {
+                from: "prepare"
+                to: "ready"
+
+                SequentialAnimation {
+                    ScriptAction { scriptName: "centerizeApp" }
+                    NumberAnimation {
+                        target: app.previousPage;
+                        properties: "opacity"
+                        duration: 300;
+                        easing.type: Easing.InOutQuad
+                    }
+                    //NumberAnimation {
+                    //    target: app
+                    //    properties: "x,y,width,height"
+                    //    duration: 250
+                    //    easing.type: Easing.InOutQuad
+                    //}
+                    NumberAnimation {
+                        target: app.currentPage;
+                        properties: "opacity"
+                        duration: 300;
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+            }
+        ]
     }
 
     SystemPalette {
@@ -76,67 +146,4 @@ Item {
         clientId: 3220807
         displayType: OAuthConnection.Popup
     }
-
-    states: [
-        State {
-            name: "prepare"
-            PropertyChanges {
-                target: previousPage
-                visible: true
-                opacity: 1
-            }
-            PropertyChanges {
-                target: currentPage
-                visible: false
-                opacity: 0
-            }
-        },
-        State {
-            name: "ready"
-            PropertyChanges {
-                target: previousPage
-                visible: false
-                opacity: 0
-            }
-            PropertyChanges {
-                target: currentPage
-                visible: true
-                opacity: 1
-            }
-            //PropertyChanges {
-            //    target: app
-            //    width: currentPage.implicitWidth
-            //    height: currentPage.implicitHeight
-            //}
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "prepare"
-            to: "ready"
-
-            SequentialAnimation {
-                ScriptAction { scriptName: "centerizeApp" }
-                NumberAnimation {
-                    target: app.previousPage;
-                    properties: "opacity"
-                    duration: 300;
-                    easing.type: Easing.InOutQuad
-                }
-                //NumberAnimation {
-                //    target: app
-                //    properties: "x,y,width,height"
-                //    duration: 250
-                //    easing.type: Easing.InOutQuad
-                //}
-                NumberAnimation {
-                    target: app.currentPage;
-                    properties: "opacity"
-                    duration: 300;
-                    easing.type: Easing.InOutQuad
-                }
-            }
-        }
-    ]
 }
