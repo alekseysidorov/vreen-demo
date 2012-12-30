@@ -87,7 +87,9 @@ Item {
     // Replaces a page on the stack.
     // See push() for details.
     function replace(page, properties, immediate) {
-        return Engine.push(page, properties, true, immediate);
+        if (page != currentPage)
+            return Engine.push(page, properties, true, immediate);
+        return page;
     }
 
     // Clears the page stack.

@@ -2,8 +2,9 @@ import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
 
-Page {
+SideBarItem {
     id: root
+    title: qsTr("Dialogs")
 
     Component.onCompleted: {
         dialogsModel.client = client
@@ -25,6 +26,11 @@ Page {
             verticalAlignment: Qt.AlignVCenter
         }
 
+        add: Transition {
+            NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 400 }
+            NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 400 }
+        }
+
         delegate: Rectangle {
             id: item
 
@@ -37,7 +43,7 @@ Page {
 
             width: parent.width
             height: 120
-            color: index % 2 ? syspal.alternateBase : "transparent"
+            color: index % 2 ? systemPalette.alternateBase : "transparent"
 
             Image {
                 id: preview
@@ -94,7 +100,7 @@ Page {
             Text {
                 id: dateLabel
 
-                color: syspal.dark
+                color: systemPalette.dark
                 font.pixelSize: 9
 
                 anchors {
@@ -117,7 +123,7 @@ Page {
                 width: parent.width
                 height: 1
                 anchors.bottom: parent.bottom
-                color: syspal.window
+                color: systemPalette.window
             }
         }
 
@@ -136,7 +142,7 @@ Page {
         onOnlineChanged: {
             if (client.online) {
                 client.roster.sync();
-                dialogsModel.getDialogs(0, 10, 160);
+                dialogsModel.getDialogs(0, 50, 160);
             }
         }
     }
