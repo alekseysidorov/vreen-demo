@@ -9,7 +9,7 @@ PageStackWindow {
 
     Component.onCompleted: client.connectToHost()
 
-    initialPage: dialogsPage
+    initialPage: newsPage
     sideBar: sideBar
     width: 1024
     height: 800
@@ -22,6 +22,9 @@ PageStackWindow {
         anchors.fill: parent
 
         items: [
+            NewsPage {
+                id: newsPage
+            },
             DialogsPage {
                 id: dialogsPage
             },
@@ -34,6 +37,8 @@ PageStackWindow {
     Client {
         id: client
         connection: conn
+
+        onOnlineChanged: if (online && pageStack.currentPage) pageStack.currentPage.update();
     }
 
     OAuthConnection {
