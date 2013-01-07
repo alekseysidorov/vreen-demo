@@ -21,8 +21,10 @@ SideBarItem {
 
         model: newsFeed
         anchors.fill: parent
-        delegate: ItemDelegate {
+        delegate: ImageItemDelegate {
             width: newsView.width
+
+            imageSource: source.photoSource
 
             Text {
                 id: sourceLabel

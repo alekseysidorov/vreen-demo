@@ -39,6 +39,7 @@
 ****************************************************************************/
 
 import QtQuick 2.0
+import "Units.js" as Units
 
 Item {
     id: scrollBar
@@ -50,7 +51,7 @@ Item {
     property Flickable flickableItem
     property int orientation: Qt.Vertical
 
-    property int __scrollSize: 6
+    property int __scrollSize: Units.gu(0.75)
 
     width:  orientation == Qt.Vertical ? __scrollSize : flickableItem.width
     height: orientation == Qt.Vertical ? flickableItem.height : __scrollSize

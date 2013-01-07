@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import com.vk.api 1.0
 import QtMultimedia 5.0
+import "components"
 
 SideBarItem {
     id: root

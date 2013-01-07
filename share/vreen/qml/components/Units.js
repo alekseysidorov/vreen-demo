@@ -7,3 +7,8 @@ function gu(unit) {
 function dp(unit) {
     return unit;
 }
+
+function em(size)
+{
+    return 12 * size;
+}

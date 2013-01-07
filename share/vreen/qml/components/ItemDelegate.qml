@@ -5,22 +5,23 @@ Rectangle {
     id: root
 
     property bool clickable: false
-    property alias imageData: imageContainer.data
-    property int imageWidth: 80
+    property bool alternate: true
+    property alias leftSideData: leftSide.data
+    property int leftSideWidth: Units.gu(8)
     property alias data: container.data
 
     signal clicked;
 
     width: parent ? parent.width : implicitWidth
-    color: index % 2 ? systemPalette.alternateBase : "transparent"
+    color: (alternate && index % 2) ? systemPalette.alternateBase : "transparent"
 
     implicitWidth: 200
-    implicitHeight: Math.max(Units.gu(12), container.last.height + container.last.y + Units.gu(2))
+    implicitHeight: Math.max(Units.gu(10), container.last.height + container.last.y, leftSide.childrenRect.height) + Units.gu(2)
 
     Item {
-        id: imageContainer
+        id: leftSide
 
-        width: imageWidth
+        width: leftSideWidth
 
         anchors {
             top: parent.top
@@ -46,7 +47,7 @@ Rectangle {
             topMargin: Units.gu(1)
             bottom: parent.bottom
             bottomMargin: Units.gu(1)
-            left: imageContainer.right
+            left: leftSide.right
             leftMargin: Units.gu(1)
             right: arrow.left
             rightMargin: Units.gu(1)
@@ -60,12 +61,14 @@ Rectangle {
         visible: clickable ? 0 : 1
         text: qsTr("❭")
         color: systemPalette.shadow
+        font.bold: true
+        font.pointSize: 11
 
         anchors {
             top: parent.top
             bottom: parent.bottom
             right: parent.right
-            rightMargin: Units.gu(2)
+            rightMargin: Units.gu(3)
         }
 
         verticalAlignment: Text.AlignVCenter
