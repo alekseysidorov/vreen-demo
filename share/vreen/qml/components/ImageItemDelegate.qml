@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Units.js" as Units
 
 ItemDelegate {
     property alias imageSource: image.source
@@ -14,8 +13,7 @@ ItemDelegate {
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: Units.gu(1)
-
+        anchors.topMargin: 2 * mm
         property variant source: ShaderEffectSource {
             sourceItem: Image {
                 id: image

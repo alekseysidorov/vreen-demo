@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Units.js" as Units
 
 Rectangle {
     id: root
@@ -7,7 +6,7 @@ Rectangle {
     property bool clickable: false
     property bool alternate: true
     property alias leftSideData: leftSide.data
-    property int leftSideWidth: Units.gu(8)
+    property int leftSideWidth: 16 * mm
     property alias data: container.data
 
     signal clicked;
@@ -16,7 +15,7 @@ Rectangle {
     color: (alternate && index % 2) ? systemPalette.alternateBase : "transparent"
 
     implicitWidth: 200
-    implicitHeight: Math.max(Units.gu(10), container.last.height + container.last.y, leftSide.childrenRect.height) + Units.gu(2)
+    implicitHeight: Math.max(20 * mm, container.last.height + container.last.y, leftSide.childrenRect.height) + 4 * mm
 
     Item {
         id: leftSide
@@ -27,7 +26,7 @@ Rectangle {
             top: parent.top
             bottom: parent.bottom
             left: parent.left
-            leftMargin: Units.gu(1)
+            leftMargin: 2 * mm
         }
     }
 
@@ -40,17 +39,17 @@ Rectangle {
             last = children[children.length - 1];
         }
 
-        spacing: Units.gu(1)
+        spacing:  2 * mm
 
         anchors {
             top: parent.top
-            topMargin: Units.gu(1)
+            topMargin: 2 * mm
             bottom: parent.bottom
-            bottomMargin: Units.gu(1)
+            bottomMargin:  2 * mm
             left: leftSide.right
-            leftMargin: Units.gu(1)
+            leftMargin:  2 * mm
             right: arrow.left
-            rightMargin: Units.gu(1)
+            rightMargin:  2 * mm
         }
     }
 
@@ -68,7 +67,7 @@ Rectangle {
             top: parent.top
             bottom: parent.bottom
             right: parent.right
-            rightMargin: Units.gu(3)
+            rightMargin:  6 * mm
         }
 
         verticalAlignment: Text.AlignVCenter

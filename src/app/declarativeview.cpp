@@ -28,7 +28,9 @@
 #include <QCoreApplication>
 #include <QQmlEngine>
 #include <QQmlComponent>
+#include <QQmlContext>
 #include <QDebug>
+#include <QScreen>
 
 namespace  {
 
@@ -60,9 +62,11 @@ QString adjustPath(const QString &source)
 
 DeclarativeView::DeclarativeView(QObject *parent) :
     QObject(parent),
-    m_engine(new QQmlEngine(this))
+    m_engine(new QQmlEngine(this)),
+    m_context(new QQmlContext(m_engine, this))
 {
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
+    m_context->setContextProperty("mm", 1);
 
     setMainQmlFile("qml/main.qml");
 }
@@ -111,8 +115,11 @@ void DeclarativeView::continueExecute()
         return;
     }
 
-    QObject *obj = m_component->create();
+    QObject *obj = m_component->create(m_context);
     obj->setParent(m_engine);
+
+    if (QWindow *w = qobject_cast<QWindow*>(obj))
+        m_context->setContextProperty("mm", w->screen()->logicalDotsPerInch() / 25.4);
 
     if (m_component->isError()) {
         QList<QQmlError> errorList = m_component->errors();

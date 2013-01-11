@@ -33,7 +33,7 @@ ApplicationWindow {
             PageStack {
                 id: stack
                 anchors.fill: parent
-                toolBar: toolBar
+                //toolBar: toolBar
             }
         }
     }

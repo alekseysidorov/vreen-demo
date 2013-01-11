@@ -45,6 +45,7 @@ protected slots:
 private:
     QString m_currentFile;
     QQmlEngine *m_engine;
+    QQmlContext *m_context;
     QSharedPointer<QQmlComponent> m_component;
 };
 
