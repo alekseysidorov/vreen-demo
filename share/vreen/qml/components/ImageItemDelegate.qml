@@ -27,27 +27,27 @@ ItemDelegate {
             hideSource: true
         }
 
-        property real radius: 0.8
+        property real thickness: 0.05
 
         fragmentShader: "
             varying highp vec2 qt_TexCoord0;
-            uniform highp float radius;
-            highp float radius2 = pow(0.707 * radius, 2.);
             uniform sampler2D source;
-            float thickness = 0.08;
+            uniform float thickness;
             void main(void)
             {
                 highp vec4 texColor = texture2D(source, qt_TexCoord0.st);
-                highp float x = abs(0.5 - qt_TexCoord0.x);
-                highp float y = abs(0.5 - qt_TexCoord0.y);
-                float distance2 = pow(x, 2.0) + pow(y, 2.0);
-
-                if (distance2 > radius2) {
-                    float factor = 1.0 - (distance2 - radius2) / thickness;
-                    gl_FragColor = texColor * factor;
-                } else {
-                    gl_FragColor = texture2D(source, qt_TexCoord0);
-                }
+                highp float x = 0.5 - abs(0.5 - qt_TexCoord0.x);
+                highp float y = 0.5 - abs(0.5 - qt_TexCoord0.y);
+                float factor = 1.0;
+                if (x < thickness) {
+                    if (y > thickness)
+                        factor = x / thickness;
+                    else {
+                        factor = (y / thickness) * (x / thickness);
+                    }
+                } else if (y < thickness)
+                    factor = y / thickness;
+                gl_FragColor = texColor * factor;
         }
         "
     }

@@ -6,7 +6,6 @@ import QtQuick.Window 2.0
 
 PageStackWindow {
     id: app
-
     Component.onCompleted: client.connectToHost()
 
     initialPage: newsPage
@@ -38,7 +37,11 @@ PageStackWindow {
         id: client
         connection: conn
 
-        onOnlineChanged: if (online && pageStack.currentPage) pageStack.currentPage.update();
+        onOnlineChanged: {
+            if (online && pageStack.currentPage) {
+                pageStack.currentPage.update();
+            }
+        }
     }
 
     OAuthConnection {
