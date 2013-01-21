@@ -5,6 +5,7 @@ import "Utils.js" as Utils
 
 SideBarItem {
     id: root
+
     title: qsTr("Dialogs")
 
     Component.onCompleted: {
@@ -69,18 +70,17 @@ SideBarItem {
         }
     }
 
-    DialogsModel {
-        id: dialogsModel
+    Updater {
+        id: updater
+
+        function update(count, offset) {
+            return dialogsModel.getDialogs(offset, count, 160);
+        }
+
+        flickableItem: dialogsView
     }
 
-    Connections {
-        target: client
-
-        onOnlineChanged: {
-            if (client.online) {
-                client.roster.sync();
-                dialogsModel.getDialogs(0, 50, 160);
-            }
-        }
+    DialogsModel {
+        id: dialogsModel
     }
 }

@@ -6,46 +6,14 @@ import "Utils.js" as Utils
 SideBarItem {
     id: root
 
-    function update() {
-        updater.updateCurrent();
-    }
-
     Component.onCompleted: {
         newsFeed.client = client;
     }
 
     title: qsTr("News")
 
-    QtObject {
-        id : updater
-
-        function getNext() {
-            var reply = newsFeed.getNews(NewsFeed.FilterNone, updater.count, updater.offset);
-            reply.resultReady.connect(function(response) {
-                if (!reply.error()) {
-                    updater.offset = response.new_offset;
-                }
-            })
-        }
-        function updateCurrent() {
-            var reply = newsFeed.getNews(NewsFeed.FilterNone, updater.offset, updater.count);
-        }
-        function truncate(count) {
-
-        }
-
-        property int offset: 0
-        property int count: 25
-    }
-
     ListView {
         id: newsView
-
-        onAtYEndChanged: {
-            if (atYEnd && client.online) {
-                updater.getNext();
-            }
-        }
 
         model: newsFeed
         anchors.fill: parent
@@ -66,6 +34,7 @@ SideBarItem {
                 text: body
                 width: parent.width
                 wrapMode: Text.WordWrap
+                maximumLineCount: 6
             }
 
             Text {
@@ -83,13 +52,6 @@ SideBarItem {
             }
         }
 
-        footer: Text {
-            width: ListView.view.width
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            text: qsTr("Loading...")
-        }
-
         add: Transition {
             NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 400 }
             NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 400 }
@@ -97,6 +59,21 @@ SideBarItem {
 
         ScrollDecorator {
             flickableItem: parent
+        }
+    }
+
+    Updater {
+        id: updater
+        flickableItem: newsView
+
+        count: 50
+
+        function update(count, offset) {
+            return newsFeed.getNews(NewsFeed.FilterNone, count, offset);
+        }
+
+        function truncate(count) {
+            newsFeed.truncate(count);
         }
     }
 

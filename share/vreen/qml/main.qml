@@ -40,6 +40,7 @@ PageStackWindow {
         onOnlineChanged: {
             if (online && pageStack.currentPage) {
                 pageStack.currentPage.update();
+                roster.sync();
             }
         }
     }

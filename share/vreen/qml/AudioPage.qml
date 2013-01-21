@@ -9,7 +9,7 @@ SideBarItem {
     property QtObject owner: client.me
 
     onOwnerChanged: {
-        audioModel.getAudio(owner.id, 50, 0);
+        audioModel.clear();
     }
 
     Component.onCompleted: {
@@ -190,5 +190,18 @@ SideBarItem {
         ScrollDecorator {
             flickableItem: parent
         }
+    }
+
+    Updater {
+        id: updater
+
+        count: 25
+
+        function update(count, offset) {
+            //TODO add support for audio searching
+            return audioModel.getAudio(owner.id, count, offset);
+        }
+
+        flickableItem: audioView
     }
 }

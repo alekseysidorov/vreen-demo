@@ -8,8 +8,4 @@ Page {
     property string description
     property real progress
     property string iconSource
-
-    function update() {
-        console.log("Implement me!")
-    }
 }

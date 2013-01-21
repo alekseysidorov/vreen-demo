@@ -43,7 +43,6 @@ ListView {
             anchors.fill: parent
             onClicked: {
                 app.pageStack.replace(modelData);
-                modelData.update();
             }
             hoverEnabled: true
         }
