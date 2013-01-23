@@ -5,6 +5,7 @@ Rectangle {
 
     property bool clickable: false
     property bool alternate: true
+    property bool showArrow: clickable
     property alias leftSideData: leftSide.data
     property int leftSideWidth: 16 * mm
     property alias data: container.data
@@ -56,8 +57,8 @@ Rectangle {
     Text {
         id: arrow
 
-        width: clickable ? implicitWidth : 0
-        visible: clickable ? 0 : 1
+        width: showArrow ? implicitWidth : 0
+        visible: showArrow
         text: qsTr("❭")
         color: systemPalette.shadow
         font.bold: true
@@ -79,5 +80,11 @@ Rectangle {
         height: 1
         anchors.bottom: parent.bottom
         color: systemPalette.window
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        onClicked: root.clicked()
     }
 }

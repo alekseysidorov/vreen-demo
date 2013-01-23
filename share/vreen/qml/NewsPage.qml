@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
+import "attachments" as Attach
 import "Utils.js" as Utils
 
 SideBarItem {
@@ -19,12 +20,13 @@ SideBarItem {
         anchors.fill: parent
         delegate: ImageItemDelegate {
             width: ListView.view.width
+            clickable: true
 
             imageSource: source.photoSource
 
             Text {
                 id: sourceLabel
-                text: Utils.contactLabel(source)
+                text: Utils.contactLabel(source, owner)
                 width: parent.width
                 font.bold: true
             }
@@ -34,19 +36,21 @@ SideBarItem {
                 text: body
                 width: parent.width
                 wrapMode: Text.WordWrap
-                maximumLineCount: 6
+                maximumLineCount: 10
+            }
+
+            Attach.Photo {
+                model: attachments[Attachment.Photo]
             }
 
             Text {
                 id: dateLabel
 
                 color: systemPalette.dark
-                font.pointSize: 7
+                font.pointSize: 8
 
                 text: {
                     var info = Qt.formatDateTime(date, qsTr("dddd in hh:mm"));
-                    if (Object.keys(attachments).length > 0)
-                        info += qsTr(", has attachments")
                     return info;
                 }
             }

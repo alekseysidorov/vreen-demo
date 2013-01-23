@@ -24,6 +24,9 @@ PageStackWindow {
             NewsPage {
                 id: newsPage
             },
+            FriendsPage {
+
+            },
             DialogsPage {
                 id: dialogsPage
             },

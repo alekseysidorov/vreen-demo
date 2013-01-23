@@ -35,7 +35,7 @@ SideBarItem {
             }
         }
 
-        volume: 0.5
+        volume: 0.2
     }
 
     AudioModel {
@@ -77,77 +77,31 @@ SideBarItem {
             NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 400 }
         }
 
-        delegate: Rectangle {
+        delegate: SimpleImageItemDelegate {
             id: item
 
-            width: parent.width
-            height: 80
-            color: index % 2 ? systemPalette.alternateBase : "transparent"
+            onClicked: audioView.playingIndex = index;
 
-            Image {
-                id: preview
+            imageSource: "images/media-optical-audio.png"
+            leftSideWidth: 48
 
-                source: "images/media-optical-audio.png"
-
-                fillMode: Image.PreserveAspectFit
-                clip: true
-                smooth: true
-
-                anchors {
-                    left: parent.left
-                    leftMargin: 5
-                    top: column.top
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: audioView.playingIndex = index;
-                }
+            Text {
+                id: titleLabel
+                width: parent.width
+                font.bold: true
+                text: artist
+                elide: Text.ElideRight
+                wrapMode: Text.Wrap
+                maximumLineCount: 1
             }
 
-            Column {
-                id: column
-
-                spacing: 2
-
-                anchors {
-                    left: preview.right
-                    top: parent.top
-                    right: parent.right
-                    bottom: parent.bottom
-                    leftMargin: 10
-                    rightMargin: 10
-                    topMargin: 10
-                }
-
-                Text {
-                    id: titleLabel
-                    width: parent.width
-                    font.bold: true
-                    text: artist
-                    elide: Text.ElideRight
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 1
-                }
-                Text {
-                    id: descriptionLabel
-                    width: parent.width
-                    text: title
-                    elide: Text.ElideRight
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 1
-                }
-
-                Text {
-                    id: durationLabel
-
-                    color: systemPalette.dark
-                    width: parent.width
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 1
-
-                    text: qsTr("Duration %2").arg((duration / 60).toFixed(2))
-                }
+            Text {
+                id: descriptionLabel
+                width: parent.width
+                text: title
+                elide: Text.ElideRight
+                wrapMode: Text.Wrap
+                maximumLineCount: 1
             }
 
             Rectangle {
@@ -156,15 +110,9 @@ SideBarItem {
 
                 opacity: index === audioView.playingIndex ? 0.15 : 0
 
-                height: 6
-                radius: 6
-
-                anchors {
-                    bottom: hr.top
-                    bottomMargin: 6
-                    left: column.left
-                    right: column.right
-                }
+                height: 1.5 * mm
+                radius: 1 * mm
+                width: parent.width
 
                 Rectangle {
                     id: progress
@@ -178,12 +126,16 @@ SideBarItem {
                 }
             }
 
-            Rectangle {
-                id: hr
+            Text {
+                id: durationLabel
+
+                color: systemPalette.dark
                 width: parent.width
-                height: 1
-                anchors.bottom: parent.bottom
-                color: systemPalette.window
+                wrapMode: Text.Wrap
+                maximumLineCount: 1
+                font.pointSize: 8
+
+                text: qsTr("Duration %2").arg((duration / 60).toFixed(2))
             }
         }
 

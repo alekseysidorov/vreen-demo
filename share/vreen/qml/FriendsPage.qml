@@ -6,20 +6,14 @@ import "Utils.js" as Utils
 SideBarItem {
     id: root
 
-    title: qsTr("Dialogs")
-
-    Component.onCompleted: {
-        dialogsModel.client = client
-    }
+    title: qsTr("Friends")
 
     ListView {
         id: dialogsView
 
         anchors.fill: parent
-        model: dialogsModel
+        model: buddyModel
         delegate: ImageItemDelegate {
-            property QtObject contact: incoming ? from : to;
-
             width: ListView.view.width
 
             imageSource: contact.photoSource
@@ -28,7 +22,7 @@ SideBarItem {
                 id: titleLabel
                 width: parent.width
                 font.bold: true
-                text: Utils.contactLabel(from, to, chatId ? qsTr("from chat") : "")
+                text: contact.name
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
                 maximumLineCount: 1
@@ -37,27 +31,19 @@ SideBarItem {
             Text {
                 id: descriptionLabel
                 width: parent.width
-                text: body
+                text: contact.activity
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
                 maximumLineCount: 3
+                color: systemPalette.shadow
             }
 
-            Text {
-                id: dateLabel
+            Row {
+                width: parent.width
 
-                color: systemPalette.dark
-                font.pointSize: 7
-
-                text: {
-                    var info = Qt.formatDateTime(date, qsTr("dddd in hh:mm"));
-                    if (unread)
-                        info += qsTr(", unread");
-                    if (Object.keys(attachments).length > 0)
-                        info += qsTr(", has attachments")
-                    return info;
-                }
+                spacing: 0.5 * mm
             }
+
         }
 
         add: Transition {
@@ -70,17 +56,8 @@ SideBarItem {
         }
     }
 
-    Updater {
-        id: updater
-
-        function update(count, offset) {
-            return dialogsModel.getDialogs(offset, count, 160);
-        }
-
-        flickableItem: dialogsView
-    }
-
-    DialogsModel {
-        id: dialogsModel
+    BuddyModel {
+        id: buddyModel
+        roster: client.roster
     }
 }
