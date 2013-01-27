@@ -6,6 +6,7 @@ import QtQuick.Window 2.0
 
 PageStackWindow {
     id: app
+
     Component.onCompleted: client.connectToHost()
 
     initialPage: newsPage
@@ -21,18 +22,11 @@ PageStackWindow {
         anchors.fill: parent
 
         items: [
-            NewsPage {
-                id: newsPage
-            },
-            FriendsPage {
-
-            },
-            DialogsPage {
-                id: dialogsPage
-            },
-            AudioPage {
-                id: audioPage
-            }
+            NewsPage { id: newsPage },
+            ProfilePage {},
+            FriendsPage {},
+            DialogsPage { id: dialogsPage },
+            AudioPage { id: audioPage }
         ]
     }
 

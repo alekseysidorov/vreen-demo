@@ -4,8 +4,11 @@ Product {
     type: "installed_content"
 
     Group {
-        fileTags: "install"
-        qbs.installPrefix: qbs.targetOS === 'mac' ? "vreen-client.app/Contents/Resources" : "bin"
+        qbs.installDir: qbs.targetOS === 'mac' ? "vreen-client.app/Contents/Resources" : "bin"
+        //qbs.install: true
+        fileTags: 'install'
+        overrideTags: false
+
         files: "vreen/qml"
     }
 }

@@ -1,3 +1,4 @@
+
 function contactLabel(from, owner, appendix) {
     if (!owner)
         return from.name;
@@ -5,4 +6,9 @@ function contactLabel(from, owner, appendix) {
     if (appendix)
         str += "(" + appendix + ")";
     return str;
+}
+
+function formatDate(date) {
+    var info = Qt.formatDateTime(date, qsTr("dddd in hh:mm"));
+    return info;
 }

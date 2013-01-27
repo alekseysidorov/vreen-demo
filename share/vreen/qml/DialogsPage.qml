@@ -49,14 +49,7 @@ SideBarItem {
                 color: systemPalette.dark
                 font.pointSize: 7
 
-                text: {
-                    var info = Qt.formatDateTime(date, qsTr("dddd in hh:mm"));
-                    if (unread)
-                        info += qsTr(", unread");
-                    if (Object.keys(attachments).length > 0)
-                        info += qsTr(", has attachments")
-                    return info;
-                }
+                text: Utils.formatDate(date)
             }
         }
 

@@ -21,7 +21,6 @@ SideBarItem {
         delegate: ImageItemDelegate {
             width: ListView.view.width
             clickable: true
-
             imageSource: source.photoSource
 
             Text {
