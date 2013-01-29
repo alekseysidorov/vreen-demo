@@ -22,13 +22,13 @@
 ** $VREEN_END_LICENSE$
 **
 ****************************************************************************/
-#include <QGuiApplication>
+#include <QApplication>
 #include <qqml.h>
 #include "declarativeview.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication a(argc, argv);
+    QApplication a(argc, argv);
     a.setApplicationName("vreen");
     a.setOrganizationName("vreen");
     a.setOrganizationDomain("https://github.com/gorthauer/vreen");
