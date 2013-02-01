@@ -5,7 +5,7 @@ Rectangle {
 
     property bool clickable: false
     property bool alternate: true
-    property bool showArrow: clickable
+    property bool showArrow: true
     property alias leftSideData: leftSide.data
     property int leftSideWidth: 16 * mm
     property alias data: container.data

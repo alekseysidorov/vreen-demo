@@ -7,7 +7,6 @@ Product {
 
     Group {
         qbs.installDir: qbs.targetOS === 'mac' ? "vreen-client.app/Contents/Resources" : "bin"
-        //qbs.install: true
         fileTags: ['install', 'qml']
         overrideTags: false
 

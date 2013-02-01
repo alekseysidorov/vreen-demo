@@ -1,41 +1,38 @@
 import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
+import QtDesktop 1.0
+import QtQuick.Window 2.0
 import "Utils.js" as Utils
 
-SideBarItem {
-    id: root
+Page {
+    id: chatPage
 
-    title: qsTr("Dialogs")
+    property QtObject contact
+    property string title: qsTr("Chat with %1").arg(contact.name)
 
-    Component.onCompleted: {
-        dialogsModel.client = client
+    onContactChanged: {
+        chatModel.setContact(contact);
     }
 
     ListView {
-        id: dialogsView
+        id: chatView
 
         anchors.fill: parent
-        model: dialogsModel
+        model: chatModel
         delegate: ImageItemDelegate {
-            property QtObject contact: incoming ? from : to;
 
-            onClicked: {
-                var properties = {
-                    "contact" : contact
-                };
-                pageStack.push(chatPage, properties);
-            }
+            Component.onCompleted: from.update()
 
             width: ListView.view.width
-
-            imageSource: contact.photoSource
+            imageSource: from.photoSource
+            clickable: true
 
             Text {
                 id: titleLabel
                 width: parent.width
                 font.bold: true
-                text: Utils.contactLabel(from, to, chatId ? qsTr("from chat") : "")
+                text: from.name
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
                 maximumLineCount: 1
@@ -74,17 +71,14 @@ SideBarItem {
         id: updater
 
         function update(count, offset) {
-            return dialogsModel.getDialogs(count, offset, 160);
+            return chatModel.getHistory(count, offset);
         }
 
-        flickableItem: dialogsView
+        flickableItem: chatView
+        reverse: true
     }
 
-    DialogsModel {
-        id: dialogsModel
-    }
-
-    ChatPage {
-        id: chatPage
+    ChatModel {
+        id: chatModel
     }
 }
