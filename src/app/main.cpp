@@ -22,7 +22,7 @@
 ** $VREEN_END_LICENSE$
 **
 ****************************************************************************/
-#include <QApplication>
+#include <QtWidgets/QApplication>
 #include <qqml.h>
 #include "declarativeview.h"
 
