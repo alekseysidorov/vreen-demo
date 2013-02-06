@@ -20,7 +20,7 @@ add_subdirectory(src/vreen)
 
 add_simple_executable(vreen-demo
     SOURCE_DIR src/app
-    QT Gui Quick
+    QT Gui Quick Widgets
 )
 
 deploy_folder(share/vreen/qml
