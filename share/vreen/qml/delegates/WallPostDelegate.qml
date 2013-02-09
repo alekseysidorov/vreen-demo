@@ -1,5 +1,7 @@
 import QtQuick 2.0
+import com.vk.api 1.0
 import "../components"
+import "../attachments" as Attach
 import "../Utils.js" as Utils
 
 ImageItemDelegate {
@@ -28,6 +30,10 @@ ImageItemDelegate {
         elide: Text.ElideRight
         wrapMode: Text.Wrap
         maximumLineCount: 6
+    }
+
+    Attach.Photo {
+        model: attachments[Attachment.Photo]
     }
 
     Text {

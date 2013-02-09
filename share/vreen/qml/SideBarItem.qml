@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import "components"
-import QtDesktop 1.0
+import QtDesktop 2.0
 
 Page {
     property string title
