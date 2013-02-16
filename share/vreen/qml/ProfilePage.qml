@@ -7,7 +7,9 @@ import "Utils.js" as Utils
 SideBarItem {
     id: root
 
-    title: qsTr("Profile")
+    property alias contact: wallModel.contact
+
+    title: contact.name
 
     ListView {
         id: wallView

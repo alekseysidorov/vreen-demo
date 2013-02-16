@@ -9,6 +9,8 @@ ImageItemDelegate {
 
     Component.onCompleted: {
         from.update();
+        if (owner)
+            owner.update();
     }
 
     imageSource: from.photoSource
@@ -17,10 +19,10 @@ ImageItemDelegate {
         id: titleLabel
         width: parent.width
         font.bold: true
-        text: from.name
+        text: Utils.contactLabel(from, owner)
         elide: Text.ElideRight
         wrapMode: Text.Wrap
-        maximumLineCount: 1
+        maximumLineCount: 2
     }
 
     Text {

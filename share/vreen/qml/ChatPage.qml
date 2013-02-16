@@ -9,16 +9,53 @@ Page {
     id: chatPage
 
     property QtObject contact
-    property string title: qsTr("Chat with %1").arg(contact.name)
+    property string title: qsTr("Chat with %1").arg(contact ? contact.name : qsTr("Unknown"))
 
     onContactChanged: {
         chatModel.setContact(contact);
     }
 
+    HeaderBar {
+        id: header
+        anchors.top: parent.top
+        opacity: 0.95
+
+        Text {
+            anchors {
+                verticalCenter: parent.verticalCenter
+                margins: 2 * mm
+                left: parent.left
+            }
+            text: title
+        }
+
+        Button {
+            id: backButton
+
+            onClicked: pageStack.pop()
+
+            text: qsTr("Back")
+
+            anchors {
+                right: parent.right
+                top: parent.top
+                bottom: parent.bottom
+                margins: mm
+            }
+        }
+    }
+
     ListView {
         id: chatView
 
-        anchors.fill: parent
+        z: header.z - 1
+        anchors {
+            top: header.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+
         model: chatModel
         delegate: ImageItemDelegate {
 

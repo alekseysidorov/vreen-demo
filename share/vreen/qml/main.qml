@@ -14,7 +14,7 @@ PageStackWindow {
     width: 1024
     height: 800
     visible: true
-    title: qsTr("Vreen demo client - %1").arg(pageStack.currentPage.title)
+    title: qsTr("Vreen demo client - %1").arg(pageStack.currentPage ? pageStack.currentPage.title : qsTr("unknown"))
 
     SideBar {
         id: sideBar
@@ -23,7 +23,7 @@ PageStackWindow {
 
         items: [
             NewsPage { id: newsPage },
-            ProfilePage {},
+            ProfilePage { id: profilePage; title: qsTr("Profile") },
             FriendsPage {},
             DialogsPage { id: dialogsPage },
             AudioPage { id: audioPage }
