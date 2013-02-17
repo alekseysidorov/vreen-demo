@@ -6,10 +6,10 @@ Rectangle {
     property Item item: null
 
     onItemChanged: {
-        console.log(item)
         if (item) {
             item.parent = header;
             item.anchors.fill = header;
+            item.anchors.margins = mm;
             item.visible = true;
         }
         header.state = item ? "visible" : "hidden";

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import com.vk.api 1.0
+import QtDesktop 1.0
 import "../components"
 import "../attachments" as Attach
 import "../Utils.js" as Utils
@@ -55,9 +56,7 @@ ImageItemDelegate {
         maximumLineCount: previewMode ? 6 : 0
     }
 
-    Attach.Photo {
-        model: attachments[Attachment.Photo]
-    }
+    Attach.View {}
 
     Text {
         id: dateLabel
@@ -66,5 +65,46 @@ ImageItemDelegate {
         font.pointSize: 7
 
         text: Utils.formatDate(date)
+    }
+
+    Loader {
+        sourceComponent: previewMode ? likeIndicator : liker
+        visible: false;
+
+        onLoaded: {
+            item.parent = parent;
+        }
+    }
+
+    Component {
+        id: likeIndicator
+        Row {
+            width: parent.width
+            spacing: mm
+
+            Text {
+                text: qsTr("Reposts: %1, likes: %2, comments: %3").arg(reposts.count).arg(likes.count).arg(comments.count)
+            }
+        }
+    }
+
+    Component {
+        id: liker
+        Row {
+            width: parent.width
+            spacing: mm
+
+            Button {
+                id: repostButton
+
+                text: qsTr("Repost")
+            }
+
+            Button {
+                id: likeButton
+
+                text: qsTr("Like")
+            }
+        }
     }
 }

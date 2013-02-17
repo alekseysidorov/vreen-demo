@@ -19,6 +19,43 @@ SubPage {
     property date date
 
     title: qsTr("Post from %1 %2").arg(from.name).arg(owner ? qsTr("by %1").arg(owner.name) : "")
+    header: header
+    footer: footer
+
+    RowLayout {
+        id: header
+
+        visible: false
+        spacing: mm
+
+        Text {
+            text: title
+
+            Layout.horizontalSizePolicy: Layout.Expanding
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+                margins: mm
+            }
+            elide: Text.ElideRight
+        }
+
+        Button {
+            id: likeBtn
+
+            text: from.type === Contact.BuddyType ? qsTr("Profile") : qsTr("Group")
+        }
+
+        Item { width: 2*mm }
+
+        Button {
+            id: backButton
+
+            onClicked: pageStack.pop()
+
+            text: qsTr("Back")
+        }
+    }
 
     ListView {
         id: wallView
@@ -68,6 +105,33 @@ SubPage {
                     HorizontalLine {}
                 }
             }
+        }
+    }
+
+    RowLayout {
+        id: footer
+
+        implicitHeight: messageArea.height + 2 * anchors.margins
+        anchors.margins: mm
+
+        TextArea {
+            id: messageArea
+
+            height: 2 * documentMargins + contentItem.implicitHeight
+            verticalScrollBar.visible: false
+            Layout.horizontalSizePolicy: Layout.Expanding
+        }
+
+        Button {
+            id: sendButton
+
+            onClicked: {
+                chatModel.sendMessage(messageArea.text);
+                messageArea.text = '';
+            }
+
+            text: qsTr("Add comment")
+
         }
     }
 

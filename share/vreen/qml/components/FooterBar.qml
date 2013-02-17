@@ -6,10 +6,10 @@ Rectangle {
     property Item item: null
 
     onItemChanged: {
-        console.log(item)
         if (item) {
             item.parent = footer;
             item.anchors.fill = footer;
+            item.anchors.margins = mm;
             item.visible = true;
         }
         footer.state = item ? "visible" : "hidden";
