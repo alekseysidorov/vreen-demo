@@ -4,13 +4,16 @@ ListView {
     id: sideBar
 
     property list<SideBarItem> items
+    property SideBarItem currentItem
+
+    onCurrentItemChanged: pageStack.replace(currentItem)
 
     model: items
 
     delegate: Rectangle {
         id: rect
 
-        property bool checked: app.pageStack.currentPage == modelData
+        property bool checked: currentItem == modelData
 
         width: parent ? parent.width : 200
         height: 32
@@ -41,9 +44,7 @@ ListView {
             id: area
 
             anchors.fill: parent
-            onClicked: {
-                app.pageStack.replace(modelData);
-            }
+            onClicked: { currentItem = modelData; }
             hoverEnabled: true
         }
 

@@ -1,98 +1,29 @@
 import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
+import "delegates"
 import QtDesktop 1.0
 import QtQuick.Window 2.0
 import "Utils.js" as Utils
 
-Page {
+SubPage {
     id: chatPage
 
     property QtObject contact
-    property string title: qsTr("Chat with %1").arg(contact ? contact.name : qsTr("Unknown"))
+
+    title: qsTr("Chat with %1").arg(contact ? contact.name : qsTr("Unknown"))
+    footer: footer
 
     onContactChanged: {
         chatModel.setContact(contact);
     }
 
-    HeaderBar {
-        id: header
-        anchors.top: parent.top
-        opacity: 0.95
-
-        Text {
-            anchors {
-                verticalCenter: parent.verticalCenter
-                margins: 2 * mm
-                left: parent.left
-            }
-            text: title
-        }
-
-        Button {
-            id: backButton
-
-            onClicked: pageStack.pop()
-
-            text: qsTr("Back")
-
-            anchors {
-                right: parent.right
-                top: parent.top
-                bottom: parent.bottom
-                margins: mm
-            }
-        }
-    }
-
     ListView {
         id: chatView
 
-        z: header.z - 1
-        anchors {
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
+        anchors.fill: parent
         model: chatModel
-        delegate: ImageItemDelegate {
-
-            Component.onCompleted: from.update()
-
-            width: ListView.view.width
-            imageSource: from.photoSource
-            clickable: true
-
-            Text {
-                id: titleLabel
-                width: parent.width
-                font.bold: true
-                text: from.name
-                elide: Text.ElideRight
-                wrapMode: Text.Wrap
-                maximumLineCount: 1
-            }
-
-            Text {
-                id: descriptionLabel
-                width: parent.width
-                text: body
-                elide: Text.ElideRight
-                wrapMode: Text.Wrap
-                maximumLineCount: 3
-            }
-
-            Text {
-                id: dateLabel
-
-                color: systemPalette.dark
-                font.pointSize: 7
-
-                text: Utils.formatDate(date)
-            }
-        }
+        delegate: ChatDelegate {}
 
         displaced: Transition {
             NumberAnimation { properties: "x,y"; duration: 400 }
@@ -103,6 +34,33 @@ Page {
 
         ScrollDecorator {
             flickableItem: parent
+        }
+    }
+
+    RowLayout {
+        id: footer
+
+        implicitHeight: messageArea.height + 2 * anchors.margins
+        anchors.margins: mm
+
+        TextArea {
+            id: messageArea
+
+            height: 2 * documentMargins + contentItem.implicitHeight
+            verticalScrollBar.visible: false
+            Layout.horizontalSizePolicy: Layout.Expanding
+        }
+
+        Button {
+            id: sendButton
+
+            onClicked: {
+                chatModel.sendMessage(messageArea.text);
+                messageArea.text = '';
+            }
+
+            text: qsTr("Send")
+
         }
     }
 

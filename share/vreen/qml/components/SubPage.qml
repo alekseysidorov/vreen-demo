@@ -1,13 +1,12 @@
 import QtQuick 2.0
-import "components"
 import QtDesktop 1.0
 
-SubPage {
-    property string title
-    property string badge
-    property string description
-    property real progress
-    property string iconSource
+Page {
+    id: page
 
-    header: null
+    property Item header : backItem
+    property Item footer
+    property string title
+    property string description
+    property string iconSource
 }

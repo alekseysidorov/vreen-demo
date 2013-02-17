@@ -5,6 +5,8 @@ ItemDelegate {
 
     property alias imageSource: image.source
 
+    signal imageClicked
+
     leftSideData: ShaderEffect {
         id: borderShader
 
@@ -50,5 +52,11 @@ ItemDelegate {
                 gl_FragColor = texColor * factor;
         }
         "
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: imageClicked()
+        }
     }
 }

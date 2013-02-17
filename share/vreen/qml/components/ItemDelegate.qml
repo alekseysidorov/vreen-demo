@@ -3,9 +3,9 @@ import QtQuick 2.0
 Rectangle {
     id: root
 
-    property bool clickable: false
+    property bool clickable: true
     property bool alternate: true
-    property bool showArrow: true
+    property bool showArrow: clickable
     property alias leftSideData: leftSide.data
     property int leftSideWidth: 16 * mm
     property alias data: container.data
@@ -15,13 +15,14 @@ Rectangle {
     width: parent ? parent.width : implicitWidth
     color: (alternate && index % 2) ? systemPalette.alternateBase : "transparent"
 
-    implicitWidth: 200
-    implicitHeight: Math.max(20 * mm, container.last.height + container.last.y, leftSide.childrenRect.height) + 4 * mm
+    implicitWidth: 40 * mm
+    implicitHeight: Math.max(10 * mm, container.last.height + container.last.y, leftSide.childrenRect.height) + 4 * mm
 
     Item {
         id: leftSide
 
         width: leftSideWidth
+        z: root.z + 1
 
         anchors {
             top: parent.top
@@ -74,17 +75,12 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
     }
 
-    Rectangle {
-        id: hr
-        width: parent.width
-        height: 1
-        anchors.bottom: parent.bottom
-        color: systemPalette.window
-    }
+    HorizontalLine { id: hr; anchors.bottom: parent.bottom }
 
     MouseArea {
         anchors.fill: parent
 
+        enabled: clickable
         onClicked: root.clicked()
     }
 }

@@ -9,7 +9,7 @@ SideBarItem {
 
     property alias contact: wallModel.contact
 
-    title: contact.name
+    title: qsTr("Viewing %1's profile").arg(contact.name)
 
     ListView {
         id: wallView
@@ -17,10 +17,6 @@ SideBarItem {
         anchors.fill: parent
         model: wallModel
         delegate: WallPostDelegate {}
-        add: Transition {
-            NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 400 }
-            NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 400 }
-        }
 
         ScrollDecorator {
             flickableItem: parent

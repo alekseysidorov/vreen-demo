@@ -16,6 +16,7 @@ SideBarItem {
         delegate: ImageItemDelegate {
             width: ListView.view.width
 
+            onClicked: pageStack.push(profilePage, { contact: contact })
             imageSource: contact.photoSource
 
             Text {

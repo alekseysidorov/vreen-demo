@@ -11,8 +11,10 @@ ApplicationWindow {
     property SystemPalette systemPalette: systemPalette
 
     Component.onCompleted: {
-        if (initialPage)
+        if (initialPage) {
             pageStack.push(initialPage);
+            stack.rebuild();
+        }
     }
 
     SplitterRow {
@@ -30,10 +32,51 @@ ApplicationWindow {
         Rectangle {
             id: contentArea
 
+            HeaderBar {
+                id: header
+
+                z: stack.z+1
+                opacity: 0.95
+
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+
             PageStack {
                 id: stack
-                anchors.fill: parent
-                //toolBar: toolBar
+
+                function rebuild() {
+                    header.item = pageStack.currentPage ? pageStack.currentPage.header : null;
+                    footer.item = pageStack.currentPage ? pageStack.currentPage.footer : null;
+                }
+
+                onBusyChanged: {
+                    if (!busy)
+                        rebuild();
+                }
+
+                anchors {
+                    top: header.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: footer.top
+                }
+            }
+
+            FooterBar {
+                id: footer
+
+                z: stack.z+1
+                opacity: 0.95
+
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                }
             }
         }
     }

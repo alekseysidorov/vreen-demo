@@ -9,7 +9,7 @@ PageStackWindow {
 
     Component.onCompleted: client.connectToHost()
 
-    initialPage: newsPage
+    initialPage: sideBar.currentItem
     sideBar: sideBar
     width: 1024
     height: 800
@@ -21,13 +21,51 @@ PageStackWindow {
 
         anchors.fill: parent
 
+        currentItem: newsPage
         items: [
             NewsPage { id: newsPage },
-            ProfilePage { id: profilePage; title: qsTr("Profile") },
+            ProfilePage { id: myProfilePage; title: qsTr("Profile") },
             FriendsPage {},
             DialogsPage { id: dialogsPage },
             AudioPage { id: audioPage }
         ]
+    }
+
+    Item {
+        id: backItem
+
+        visible: false
+
+        Text {
+            text: pageStack.currentPage.title
+            anchors {
+                left: parent.left
+                margins: 2*mm
+                verticalCenter: parent.verticalCenter
+            }
+        }
+
+        Button {
+            id: backButton
+
+            onClicked: pageStack.pop()
+
+            text: qsTr("Back")
+
+            anchors {
+                right: parent.right
+                top: parent.top
+                bottom: parent.bottom
+                margins: mm
+            }
+        }
+    }
+
+    //subpages
+    PostPage { id: postPage }
+    ProfilePage {
+        id: profilePage
+        header: backItem
     }
 
     Client {

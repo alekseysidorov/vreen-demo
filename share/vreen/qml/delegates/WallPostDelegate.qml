@@ -5,7 +5,11 @@ import "../attachments" as Attach
 import "../Utils.js" as Utils
 
 ImageItemDelegate {
-    width: ListView.view.width
+    property bool previewMode: true
+
+    width: parent ? parent.width : 600
+    clickable: previewMode
+    alternate: previewMode
 
     Component.onCompleted: {
         from.update();
@@ -13,10 +17,27 @@ ImageItemDelegate {
             owner.update();
     }
 
+    onClicked: {
+        var properties = {
+            contact: from,
+            postId: postId,
+            owner: owner ? owner : null,
+            body: body,
+            attachments: attachments,
+            date: date
+        };
+        pageStack.push(postPage, properties);
+    }
+    onImageClicked: {
+        pageStack.push(profilePage, { contact: from });
+    }
+
     imageSource: from.photoSource
 
     Text {
         id: titleLabel
+
+        visible: previewMode
         width: parent.width
         font.bold: true
         text: Utils.contactLabel(from, owner)
@@ -31,7 +52,7 @@ ImageItemDelegate {
         text: body
         elide: Text.ElideRight
         wrapMode: Text.Wrap
-        maximumLineCount: 6
+        maximumLineCount: previewMode ? 6 : 0
     }
 
     Attach.Photo {
