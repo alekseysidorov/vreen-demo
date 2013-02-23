@@ -38,8 +38,7 @@ Rectangle {
         property Item last;
 
         onChildrenChanged: {
-            last = children[children.length - 1];
-            console.log(last);
+            last = children[children.length-1];
         }
 
         spacing:  2 * mm

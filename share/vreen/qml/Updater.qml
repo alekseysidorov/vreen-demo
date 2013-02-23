@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: updater
 
-    property bool canUpdate: client.online
+    property bool canUpdate: client.online && !busy
     property bool busy: false
     property int count: 25
     property int offset: flickableItem.count

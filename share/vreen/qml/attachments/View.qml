@@ -5,11 +5,13 @@ import "private" as Private
 Column {
     id: view
 
+    property variant model
+
     width: parent.width
     spacing: mm
 
     Private.Loader {
-        model: attachments[Attachment.Photo]
+        model: view.model[Attachment.Photo]
         component: Photo {}
     }
 }

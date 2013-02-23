@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import com.vk.api 1.0
-import QtDesktop 1.0
+import QtQuick.Controls 1.0
 import "components"
 import "delegates"
 import "Utils.js" as Utils
@@ -15,7 +15,7 @@ SubPage {
     property alias from: root.contact
     property QtObject owner
     property string body
-    property variant attachments
+    property variant attachments: null
     property date date
 
     title: qsTr("Post from %1 %2").arg(from.name).arg(owner ? qsTr("by %1").arg(owner.name) : "")
@@ -85,7 +85,9 @@ SubPage {
         header: Column {
             width: parent.width
 
-            WallPostDelegate { previewMode: false }
+            WallPostDelegate {
+                previewMode: false
+            }
 
             Rectangle {
                 width: parent.width

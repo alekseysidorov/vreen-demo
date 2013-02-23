@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtDesktop 1.0
+import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
 
 ApplicationWindow {
@@ -17,16 +17,17 @@ ApplicationWindow {
         }
     }
 
-    SplitterRow {
+    SplitView {
         anchors.fill: parent
-        handleWidth: 1
+
+        orientation:Qt.Horizontal
 
         Rectangle {
             id: sideBar
-            Splitter.minimumWidth: 180
             color: systemPalette.window
             clip: true
             z: contentArea.z + 1
+            Layout.minimumWidth: 30*mm
         }
 
         Rectangle {
@@ -49,8 +50,9 @@ ApplicationWindow {
                 id: stack
 
                 function rebuild() {
-                    header.item = pageStack.currentPage ? pageStack.currentPage.header : null;
-                    footer.item = pageStack.currentPage ? pageStack.currentPage.footer : null;
+                    var page = pageStack.currentPage;
+                    header.replace(page.header);
+                    footer.replace(page.footer);
                 }
 
                 onBusyChanged: {

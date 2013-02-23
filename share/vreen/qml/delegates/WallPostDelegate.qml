@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import com.vk.api 1.0
-import QtDesktop 1.0
+import QtQuick.Controls 1.0
 import "../components"
 import "../attachments" as Attach
 import "../Utils.js" as Utils
@@ -56,7 +56,7 @@ ImageItemDelegate {
         maximumLineCount: previewMode ? 6 : 0
     }
 
-    Attach.View {}
+    Attach.View { model: attachments }
 
     Text {
         id: dateLabel

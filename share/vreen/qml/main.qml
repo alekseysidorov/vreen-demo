@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import com.vk.api 1.0
 import "components"
-import QtDesktop 1.0
+import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
 
 PageStackWindow {
@@ -56,7 +56,6 @@ PageStackWindow {
                 right: parent.right
                 top: parent.top
                 bottom: parent.bottom
-                margins: mm
             }
         }
     }
