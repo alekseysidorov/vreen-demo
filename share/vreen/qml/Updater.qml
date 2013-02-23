@@ -16,7 +16,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         text: qsTr("Loading...")
         color: systemPalette.dark
-        visible: updater.busy
+        visible: updater.state === "updateFirst"
     }
     property Component footer: Text {
         width: parent.width
@@ -24,9 +24,25 @@ Item {
         verticalAlignment: Text.AlignVCenter
         text: qsTr("Loading...")
         color: systemPalette.dark
-        visible: updater.busy
+        visible: updater.state === "updateLast"
     }
 
+    function getLast() {
+        var reply = update(count, reverse ? 0 : offset);
+        state = "updateLast";
+        processReply(reply);
+        return reply;
+    }
+
+    function getFirst() {
+        truncate(2 * count);
+        var reply = update(count, reverse ? offset : 0);
+        state = "updateFirst";
+        processReply(reply);
+        return reply;
+    }
+
+    //protected
     function update(count, offset) {
         console.log("Updater: please implement function with signature update(count, offset)")
     }
@@ -35,13 +51,11 @@ Item {
         console.log("Updater: please implement function with signature truncate(count)")
     }
 
-    function getLast() {
-        return update(count, reverse ? 0 : offset);
-    }
-
-    function getFirst() {
-        truncate(2 * count);
-        return update(count, reverse ? offset : 0);
+    //internal
+    function processReply(reply) {
+        reply.resultReady.connect(function() {
+            state = "updateFinished";
+        });
     }
 
     onFlickableItemChanged: {
@@ -52,29 +66,28 @@ Item {
     Connections {
         target: flickableItem
 
-        onAtYEndChanged: {
-            if (flickableItem.atYEnd && canUpdate) {
-                var reply = getLast();
-                if (reply) {
-                    busy = true;
-                    reply.resultReady.connect(function() {
-                        busy = false;
-                    });
-                }
-            }
-        }
-
-        onAtYBeginningChanged: {
-            if (flickableItem.atYBeginning && canUpdate) {
-                var reply = getFirst();
-                if (reply) {
-                    busy = true;
-                    reply.resultReady.connect(function() {
-                        busy = false;
-                    });
-                }
+        onFlickEnded: {
+            if (canUpdate) {
+                var updateMargin = 10 * mm;
+                if (flickableItem.contentY < updateMargin)
+                    getFirst();
+                else if (flickableItem.contentY + flickableItem.height > (flickableItem.contentHeight - updateMargin))
+                    getLast();
             }
         }
     }
+
+    states: [
+        State {
+            name: "updateFirst"
+        },
+        State  {
+            name: 'updateLase'
+        },
+        State {
+            name: "updateFinished"
+        }
+
+    ]
 }
 

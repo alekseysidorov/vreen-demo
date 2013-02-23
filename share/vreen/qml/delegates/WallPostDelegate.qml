@@ -56,7 +56,7 @@ ImageItemDelegate {
         maximumLineCount: previewMode ? 6 : 0
     }
 
-    Attach.View { model: attachments }
+    Attach.View {}
 
     Text {
         id: dateLabel
