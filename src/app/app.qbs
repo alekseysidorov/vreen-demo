@@ -11,4 +11,10 @@ Application {
         "*.cpp",
         "*.h"
     ]
+
+    Group {
+        fileTagsFilter: product.type
+        qbs.install: true
+        qbs.installDir: "bin"
+    }
 }
