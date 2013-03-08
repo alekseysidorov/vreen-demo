@@ -9,4 +9,8 @@ Page {
     property string title
     property string description
     property string iconSource
+
+    function update() {
+        console.log("SubPage::update - please implement this function in inheritors")
+    }
 }

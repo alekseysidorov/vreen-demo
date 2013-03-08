@@ -72,10 +72,10 @@ PageStackWindow {
         connection: conn
 
         onOnlineChanged: {
-            if (online && pageStack.currentPage) {
-                pageStack.currentPage.update();
+            if (online) {
                 roster.sync();
-            }
+            } else
+                connectToHost(); //temporary hack
         }
     }
 

@@ -53,6 +53,7 @@ ApplicationWindow {
                     var page = pageStack.currentPage;
                     header.replace(page.header);
                     footer.replace(page.footer);
+                    page.update();
                 }
 
                 onBusyChanged: {

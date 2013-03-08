@@ -7,6 +7,10 @@ import "Utils.js" as Utils
 SideBarItem {
     id: root
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     property alias contact: wallModel.contact
 
     title: qsTr("Viewing %1's profile").arg(contact.name)

@@ -8,6 +8,10 @@ SideBarItem {
 
     title: qsTr("Dialogs")
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     Component.onCompleted: {
         dialogsModel.client = client
     }

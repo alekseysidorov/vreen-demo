@@ -7,6 +7,10 @@ import "Utils.js" as Utils
 SideBarItem {
     id: root
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     Component.onCompleted: {
         newsFeed.client = client;
     }

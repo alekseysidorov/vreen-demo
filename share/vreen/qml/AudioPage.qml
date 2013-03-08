@@ -8,6 +8,10 @@ SideBarItem {
 
     property QtObject owner: client.me
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     onOwnerChanged: {
         audioModel.clear();
     }

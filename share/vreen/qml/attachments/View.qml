@@ -9,7 +9,7 @@ Column {
     spacing: mm
 
     Private.Loader {
-        model: attachments[Attachment.Photo]
+        model: attachments ? attachments[Attachment.Photo] : null
         component: Photo {}
     }
 }

@@ -11,6 +11,10 @@ SubPage {
 
     property QtObject contact
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     title: qsTr("Chat with %1").arg(contact ? contact.name : qsTr("Unknown"))
     footer: footer
 

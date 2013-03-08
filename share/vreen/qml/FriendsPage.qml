@@ -8,6 +8,10 @@ SideBarItem {
 
     title: qsTr("Friends")
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     ListView {
         id: dialogsView
 

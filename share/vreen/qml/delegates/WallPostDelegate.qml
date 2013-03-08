@@ -13,7 +13,8 @@ ImageItemDelegate {
     alternate: previewMode
 
     Component.onCompleted: {
-        from.update();
+        if (from)
+            from.update();
         if (owner)
             owner.update();
     }

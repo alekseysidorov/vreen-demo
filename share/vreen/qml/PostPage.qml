@@ -18,6 +18,10 @@ SubPage {
     property variant attachments: null
     property date date
 
+    function update() {
+        updater.testAndUpdate();
+    }
+
     title: qsTr("Post from %1 %2").arg(from.name).arg(owner ? qsTr("by %1").arg(owner.name) : "")
     header: header
     footer: footer

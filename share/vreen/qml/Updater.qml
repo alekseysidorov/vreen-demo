@@ -51,6 +51,17 @@ Item {
         console.log("Updater: please implement function with signature truncate(count)")
     }
 
+    function testAndUpdate() {
+        if (canUpdate) {
+            var updateThreshold = 0.1;
+            var ratio = flickableItem.visibleArea.yPosition;
+            if (ratio < updateThreshold)
+                getFirst();
+            else if (ratio > (1 - updateThreshold - flickableItem.visibleArea.heightRatio))
+                getLast();
+        }
+    }
+
     //internal
     function processReply(reply) {
         reply.resultReady.connect(function() {
@@ -63,18 +74,15 @@ Item {
         flickableItem.footer = footer;
     }
 
+    onCanUpdateChanged: {
+        if (canUpdate)
+            testAndUpdate();
+    }
+
     Connections {
         target: flickableItem
 
-        onFlickEnded: {
-            if (canUpdate) {
-                var updateMargin = 10 * mm;
-                if (flickableItem.contentY < updateMargin)
-                    getFirst();
-                else if (flickableItem.contentY + flickableItem.height > (flickableItem.contentHeight - updateMargin))
-                    getLast();
-            }
-        }
+        onFlickEnded: testAndUpdate()
     }
 
     states: [
