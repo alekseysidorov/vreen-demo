@@ -1,9 +1,10 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: header
+    id: root
 
     property Item currentItem: null
+    property bool busy: false
 
     function replace(item) {
         if (currentItem) {
@@ -11,12 +12,13 @@ Rectangle {
         }
         currentItem = item;
         if (item) {
-            item.parent = header;
-            item.anchors.fill = header;
+            item.parent = root;
+            item.anchors.fill = root;
             item.anchors.margins = mm;
             item.visible = true;
         }
-        header.state = currentItem ? "visible" : "hidden";
+        root.busy = true;
+        root.state = currentItem ? "visible" : "hidden";
     }
 
     state: "hidden"
@@ -27,16 +29,18 @@ Rectangle {
         State {
             name: "visible"
             PropertyChanges {
-                target: header
+                target: root
                 opacity: 1
+                busy: false
             }
         },
         State {
             name: "hidden"
             PropertyChanges {
-                target: header
+                target: root
                 height: 0
                 opacity: 0
+                busy: false
             }
         }
     ]

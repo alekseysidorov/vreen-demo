@@ -53,7 +53,7 @@ ApplicationWindow {
                     var page = pageStack.currentPage;
                     header.replace(page.header);
                     footer.replace(page.footer);
-                    page.update();
+                    updateTimer.start();
                 }
 
                 onBusyChanged: {
@@ -66,6 +66,13 @@ ApplicationWindow {
                     left: parent.left
                     right: parent.right
                     bottom: footer.top
+                }
+
+                Timer {
+                    id: updateTimer
+                    interval: 400
+                    onTriggered: pageStack.currentPage.update()
+                    repeat: false
                 }
             }
 

@@ -32,6 +32,7 @@ ImageItemDelegate {
     }
 
     Attach.View {
+        model: attachments
     }
 
     Text {

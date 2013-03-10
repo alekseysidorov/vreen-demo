@@ -1,12 +1,15 @@
 import QtQuick 2.0
+import com.vk.api 1.0
 
 Loader {
-    property variant model
+    property int type
     property Component component
 
+    enabled: allowedTypes.indexOf(type) !== -1
+
     onLoaded: {
-        item.model = model;
+        item.model = Qt.binding(function() { return model[type]; });
     }
 
-    sourceComponent: model ? component : null
+    sourceComponent: enabled && model[type] ? component : null
 }

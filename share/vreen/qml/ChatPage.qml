@@ -29,13 +29,6 @@ SubPage {
         model: chatModel
         delegate: ChatDelegate {}
 
-        displaced: Transition {
-            NumberAnimation { properties: "x,y"; duration: 400 }
-        }
-        move: Transition {
-            NumberAnimation { properties: "x,y"; duration: 400 }
-        }
-
         ScrollDecorator {
             flickableItem: parent
         }

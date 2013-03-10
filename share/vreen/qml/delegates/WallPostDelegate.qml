@@ -8,6 +8,14 @@ import "../Utils.js" as Utils
 ImageItemDelegate {
     property bool previewMode: true
 
+    //wall post fields
+    property QtObject from: model.from
+    property QtObject owner: Utils.checkProperty(model.owner)
+    property string body: model.body
+    property string copyText: Utils.checkProperty(model.copyText, '')
+    property variant attachments: model.attachments
+    property date date: model.date
+
     width: parent ? parent.width : 600
     clickable: previewMode
     alternate: previewMode
@@ -23,8 +31,9 @@ ImageItemDelegate {
         var properties = {
             contact: from,
             postId: postId,
-            owner: owner ? owner : null,
+            owner: (typeof(owner) != "undefined" ? owner : null),
             body: body,
+            copyText: (typeof(copyText) != "undefined" ? copyText : ""),
             attachments: attachments,
             date: date
         };
@@ -36,16 +45,52 @@ ImageItemDelegate {
 
     imageSource: from.photoSource
 
-    Text {
-        id: titleLabel
+    Component {
+        id: textComponent
+        Text {
+            id: copyLabel
+            width: parent.width
+            elide: Text.ElideRight
+            wrapMode: Text.Wrap
+        }
+    }
 
-        visible: previewMode
+    Loader {
         width: parent.width
-        font.bold: true
-        text: Utils.contactLabel(from, owner)
-        elide: Text.ElideRight
-        wrapMode: Text.Wrap
-        maximumLineCount: 2
+
+        onLoaded: {
+            item.text = Qt.binding(function() { return from.name; })
+            item.maximumLineCount = 2;
+            item.font.bold = true
+        }
+
+        sourceComponent:  textComponent
+        active: previewMode
+    }
+
+    Loader {
+        width: parent.width
+
+        onLoaded: {
+            item.text = Qt.binding(function() { return copyText })
+            item.maximumLineCount = previewMode ? 3 : 0;
+        }
+
+        sourceComponent: textComponent
+        active: copyText
+    }
+
+    Loader {
+        width: parent.width
+
+        onLoaded: {
+            item.text = Qt.binding(function() { return qsTr("← %1").arg(owner.name) })
+            item.maximumLineCount = 2;
+            item.font.bold = true
+        }
+
+        sourceComponent: textComponent
+        active: owner
     }
 
     Text {
@@ -57,7 +102,9 @@ ImageItemDelegate {
         maximumLineCount: previewMode ? 6 : 0
     }
 
-    Attach.View {}
+    Attach.View {
+        model: attachments
+    }
 
     Text {
         id: dateLabel

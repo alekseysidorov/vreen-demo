@@ -15,6 +15,7 @@ SubPage {
     property alias from: root.contact
     property QtObject owner
     property string body
+    property string copyText: null
     property variant attachments: null
     property date date
 
@@ -91,6 +92,12 @@ SubPage {
 
             WallPostDelegate {
                 previewMode: false
+                from: root.from
+                owner: root.owner
+                body: root.body
+                copyText: root.copyText
+                attachments: root.attachments
+                date: root.date
             }
 
             Rectangle {

@@ -28,17 +28,25 @@ Item {
     }
 
     function getLast() {
+        console.log("getLast");
         var reply = update(count, reverse ? 0 : offset);
         state = "updateLast";
-        processReply(reply);
+        reply.resultReady.connect(function() {
+            if (reverse)
+                flickableItem.positionViewAtIndex(flickableItem.count - 1, ListView.End);
+            state = "updateFinished";
+        });
         return reply;
     }
 
     function getFirst() {
-        truncate(2 * count);
+        console.log("getFirst");
         var reply = update(count, reverse ? offset : 0);
         state = "updateFirst";
-        processReply(reply);
+        flickableItem.currentIndex = 1;
+        reply.resultReady.connect(function() {
+            state = "updateFinished";
+        });
         return reply;
     }
 
@@ -47,26 +55,19 @@ Item {
         console.log("Updater: please implement function with signature update(count, offset)")
     }
 
-    function truncate(count) {
-        console.log("Updater: please implement function with signature truncate(count)")
+    function truncate(count, offset) {
+        console.log("Updater: please implement function with signature truncate(count, offset)")
     }
 
     function testAndUpdate() {
         if (canUpdate) {
             var updateThreshold = 0.1;
             var ratio = flickableItem.visibleArea.yPosition;
-            if (ratio < updateThreshold)
-                getFirst();
-            else if (ratio > (1 - updateThreshold - flickableItem.visibleArea.heightRatio))
+            if (ratio > (1 - updateThreshold - flickableItem.visibleArea.heightRatio))
                 getLast();
+            else if (ratio < updateThreshold)
+                getFirst();
         }
-    }
-
-    //internal
-    function processReply(reply) {
-        reply.resultReady.connect(function() {
-            state = "updateFinished";
-        });
     }
 
     onFlickableItemChanged: {
@@ -75,8 +76,7 @@ Item {
     }
 
     onCanUpdateChanged: {
-        if (canUpdate)
-            testAndUpdate();
+        testAndUpdate();
     }
 
     Connections {
