@@ -4,6 +4,7 @@ import "components"
 import "delegates"
 import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
+import QtQuick.Layouts 1.0
 import "Utils.js" as Utils
 
 SubPage {

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
+import QtQuick.Layouts 1.0
 
 ApplicationWindow {
     id: window
@@ -20,14 +21,14 @@ ApplicationWindow {
     SplitView {
         anchors.fill: parent
 
-        orientation:Qt.Horizontal
+        //orientation:Qt.Horizontal
 
         Rectangle {
             id: sideBar
             color: systemPalette.window
             clip: true
             z: contentArea.z + 1
-            Layout.minimumWidth: 30*mm
+            //Layout.minimumWidth: 30*mm
         }
 
         Rectangle {
