@@ -6,14 +6,13 @@ import QtQuick.Layouts 1.0
 ApplicationWindow {
     id: window
 
-    property variant initialPage
+    property alias initialItem: stack.initialItem
     property alias pageStack: stack
     property alias sideBar: sideBar.data
     property SystemPalette systemPalette: systemPalette
 
     Component.onCompleted: {
-        if (initialPage) {
-            pageStack.push(initialPage);
+        if (initialItem) {
             stack.rebuild();
         }
     }
@@ -47,11 +46,11 @@ ApplicationWindow {
                 }
             }
 
-            PageStack {
+            StackView {
                 id: stack
 
                 function rebuild() {
-                    var page = pageStack.currentPage;
+                    var page = pageStack.currentItem;
                     header.replace(page.header);
                     footer.replace(page.footer);
                     updateTimer.start();

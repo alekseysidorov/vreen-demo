@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import com.vk.api 1.0
 import "components"
 import "delegates"
@@ -46,7 +46,7 @@ SubPage {
 
             height: 2 * documentMargins + contentItem.implicitHeight
             verticalScrollBar.visible: false
-            Layout.horizontalSizePolicy: Layout.Expanding
+            Layout.fillWidth: true
         }
 
         Button {

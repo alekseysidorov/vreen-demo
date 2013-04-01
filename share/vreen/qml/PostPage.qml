@@ -37,7 +37,7 @@ SubPage {
         Text {
             text: title
 
-            Layout.horizontalSizePolicy: Layout.Expanding
+            Layout.fillWidth: true
             anchors {
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -68,8 +68,8 @@ SubPage {
 
         anchors.fill: parent
 
-        Layout.verticalSizePolicy: Layout.Expanding
-        Layout.horizontalSizePolicy: Layout.Expanding
+        Layout.fillHeight: true
+        Layout.fillWidth: true
 
         model: commentsModel
         delegate: ChatDelegate {}
@@ -133,7 +133,7 @@ SubPage {
 
             height: 2 * documentMargins + contentItem.implicitHeight
             verticalScrollBar.visible: false
-            Layout.horizontalSizePolicy: Layout.Expanding
+            Layout.fillWidth: true
         }
 
         Button {

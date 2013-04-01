@@ -6,6 +6,7 @@ Application {
 
     Depends { name: "qt"; submodules: ["core", "quick", "widgets"] }
     Depends { name: "cpp" }
+    Depends { name: "vreen.core" }
 
     files: [
         "*.cpp",
@@ -15,6 +16,6 @@ Application {
     Group {
         fileTagsFilter: product.type
         qbs.install: true
-        qbs.installDir: "bin"
+        qbs.installDir: vreen.core.binDestination
     }
 }

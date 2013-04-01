@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-Page {
+Item {
     id: page
 
     property Item header : backItem

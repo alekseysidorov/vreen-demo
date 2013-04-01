@@ -9,7 +9,7 @@ PageStackWindow {
 
     Component.onCompleted: client.connectToHost()
 
-    initialPage: sideBar.currentItem
+    initialItem: sideBar.currentItem
     sideBar: sideBar
     width: 1024
     height: 800
@@ -37,7 +37,7 @@ PageStackWindow {
         visible: false
 
         Text {
-            text: pageStack.currentPage.title
+            text: pageStack.currentItem.title
             anchors {
                 left: parent.left
                 margins: 2*mm
