@@ -1,18 +1,18 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import QtQuick.Controls 1.0
-import QtQuick.Window 2.0
+import QtQuick.Window 2.1
 import QtQuick.Layouts 1.0
 
 ApplicationWindow {
     id: window
 
-    property alias initialItem: stack.initialItem
+    property alias initialPage: stack.initialItem
     property alias pageStack: stack
     property alias sideBar: sideBar.data
     property SystemPalette systemPalette: systemPalette
 
     Component.onCompleted: {
-        if (initialItem) {
+        if (initialPage) {
             stack.rebuild();
         }
     }
@@ -20,14 +20,12 @@ ApplicationWindow {
     SplitView {
         anchors.fill: parent
 
-        //orientation:Qt.Horizontal
-
         Rectangle {
             id: sideBar
             color: systemPalette.window
             clip: true
             z: contentArea.z + 1
-            //Layout.minimumWidth: 30*mm
+            Layout.minimumWidth: 30*mm
         }
 
         Rectangle {

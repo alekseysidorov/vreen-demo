@@ -9,7 +9,7 @@ PageStackWindow {
 
     Component.onCompleted: client.connectToHost()
 
-    initialItem: sideBar.currentItem
+    initialPage: sideBar.currentItem
     sideBar: sideBar
     width: 1024
     height: 800
