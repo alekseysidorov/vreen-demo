@@ -6,22 +6,25 @@ import QtQuick.Layouts 1.0
 ApplicationWindow {
     id: window
 
-    property alias initialPage: stack.initialItem
-    property alias pageStack: stack
-    property alias sideBar: sideBar.data
+    property alias initialItem: stack.initialItem
+    property alias stackView: stack
+    property Item sideBar
     property SystemPalette systemPalette: systemPalette
 
+    onSideBarChanged: { if (sideBar) sideBar.parent = sideBarArea; }
+
     Component.onCompleted: {
-        if (initialPage) {
+        if (initialItem) {
             stack.rebuild();
         }
     }
 
     SplitView {
         anchors.fill: parent
+        z: parent.z + 1
 
         Rectangle {
-            id: sideBar
+            id: sideBarArea
             color: systemPalette.window
             clip: true
             z: contentArea.z + 1
@@ -48,10 +51,12 @@ ApplicationWindow {
                 id: stack
 
                 function rebuild() {
-                    var page = pageStack.currentItem;
-                    header.replace(page.header);
-                    footer.replace(page.footer);
-                    updateTimer.start();
+                    var page = stackView.currentItem;
+                    if (page) {
+                        header.replace(page.header);
+                        footer.replace(page.footer);
+                        updateTimer.start();
+                    }
                 }
 
                 onBusyChanged: {
@@ -69,7 +74,10 @@ ApplicationWindow {
                 Timer {
                     id: updateTimer
                     interval: 400
-                    onTriggered: pageStack.currentPage.update()
+                    onTriggered: {
+                        if (stack.currentItem)
+                            stack.currentItem.update();
+                    }
                     repeat: false
                 }
             }
@@ -96,6 +104,6 @@ ApplicationWindow {
     // event preventer when page transition is active
     MouseArea {
         anchors.fill: parent
-        enabled: pageStack.busy
+        enabled: stackView.busy
     }
 }

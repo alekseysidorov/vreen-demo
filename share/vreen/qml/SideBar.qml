@@ -6,7 +6,7 @@ ListView {
     property list<SideBarItem> items
     property SideBarItem currentItem
 
-    onCurrentItemChanged: pageStack.replace(currentItem)
+    onCurrentItemChanged: stackView.replace(currentItem)
 
     model: items
 

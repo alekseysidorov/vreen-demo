@@ -57,7 +57,7 @@ SubPage {
         Button {
             id: backButton
 
-            onClicked: pageStack.pop()
+            onClicked: stackView.pop()
 
             text: qsTr("Back")
         }

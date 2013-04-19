@@ -9,15 +9,15 @@ PageStackWindow {
 
     Component.onCompleted: client.connectToHost()
 
-    initialPage: sideBar.currentItem
-    sideBar: sideBar
+    initialItem: sideBar.currentItem
+    sideBar: side
     width: 1024
     height: 800
     visible: true
-    title: qsTr("Vreen demo client - %1").arg(pageStack.currentPage ? pageStack.currentPage.title : qsTr("unknown"))
+    title: qsTr("Vreen demo client - %1").arg(stackView.currentPage ? stackView.currentPage.title : qsTr("unknown"))
 
     SideBar {
-        id: sideBar
+        id: side
 
         anchors.fill: parent
 
@@ -37,7 +37,7 @@ PageStackWindow {
         visible: false
 
         Text {
-            text: pageStack.currentItem.title
+            text: stackView.currentItem.title
             anchors {
                 left: parent.left
                 margins: 2*mm
@@ -48,7 +48,7 @@ PageStackWindow {
         Button {
             id: backButton
 
-            onClicked: pageStack.pop()
+            onClicked: stackView.pop()
 
             text: qsTr("Back")
 
@@ -74,6 +74,8 @@ PageStackWindow {
         onOnlineChanged: {
             if (online) {
                 roster.sync();
+                if (stackView.currentItem)
+                    stackView.currentItem.update();
             } else
                 connectToHost(); //temporary hack
         }

@@ -70,7 +70,7 @@ Item {
         }
     }
 
-    onFlickableItemChanged: {
+    Component.onCompleted: {
         flickableItem.header = header;
         flickableItem.footer = footer;
     }

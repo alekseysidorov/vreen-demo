@@ -37,10 +37,10 @@ ImageItemDelegate {
             attachments: attachments,
             date: date
         };
-        pageStack.push(postPage, properties);
+        stackView.push(postPage, properties);
     }
     onImageClicked: {
-        pageStack.push(profilePage, { contact: from });
+        stackView.push(profilePage, { contact: from });
     }
 
     imageSource: from.photoSource

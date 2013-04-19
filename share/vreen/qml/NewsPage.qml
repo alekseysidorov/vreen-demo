@@ -1,5 +1,8 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
+
 import com.vk.api 1.0
+
 import "components"
 import "delegates"
 import "Utils.js" as Utils
