@@ -55,13 +55,16 @@ ApplicationWindow {
                     if (page) {
                         header.replace(page.header);
                         footer.replace(page.footer);
-                        updateTimer.start();
+                        //updateTimer.start();
                     }
                 }
 
                 onBusyChanged: {
-                    if (!busy)
+                    if (!busy) {
                         rebuild();
+                        if (stack.currentItem)
+                            stack.currentItem.update();
+                    }
                 }
 
                 anchors {

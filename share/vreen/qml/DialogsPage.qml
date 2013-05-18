@@ -29,7 +29,7 @@ SideBarItem {
                 var properties = {
                     "contact" : contact
                 };
-                pageStack.push(chatPage, properties);
+                stackView.push(chatPage, properties);
             }
 
             width: ListView.view.width

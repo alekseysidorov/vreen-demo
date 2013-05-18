@@ -11,5 +11,5 @@ Loader {
         item.model = Qt.binding(function() { return model[type]; });
     }
 
-    sourceComponent: enabled && model[type] ? component : null
+    sourceComponent: (enabled && model && model[type]) ? component : null
 }

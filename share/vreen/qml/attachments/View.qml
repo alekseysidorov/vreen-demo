@@ -15,8 +15,8 @@ Column {
         type: Attachment.Photo
         component: Photo {}
     }
-    //Private.Loader {
-    //    type: Attachment.Audio
-    //    component: Audio {}
-    //}
+    Private.Loader {
+        type: Attachment.Audio
+        component: Audio {}
+    }
 }

@@ -9,7 +9,6 @@ SideBarItem {
     title: qsTr("Friends")
 
     function update() {
-        updater.testAndUpdate();
     }
 
     ListView {
@@ -20,7 +19,7 @@ SideBarItem {
         delegate: ImageItemDelegate {
             width: ListView.view.width
 
-            onClicked: pageStack.push(profilePage, { contact: contact })
+            onClicked: stackView.push(profilePage, { contact: contact })
             imageSource: contact.photoSource
 
             Text {
@@ -50,12 +49,6 @@ SideBarItem {
             }
 
         }
-
-        add: Transition {
-            NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 400 }
-            NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 400 }
-        }
-
         ScrollDecorator {
             flickableItem: parent
         }

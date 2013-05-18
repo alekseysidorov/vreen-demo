@@ -35,30 +35,31 @@ SubPage {
         }
     }
 
-    RowLayout {
+    Component {
         id: footer
+        RowLayout {
 
-        implicitHeight: messageArea.height + 2 * anchors.margins
-        anchors.margins: mm
+            implicitHeight: messageArea.height + 2 * anchors.margins
+            anchors.margins: mm
 
-        TextArea {
-            id: messageArea
+            TextArea {
+                id: messageArea
 
-            height: 2 * documentMargins + contentItem.implicitHeight
-            verticalScrollBar.visible: false
-            Layout.fillWidth: true
-        }
-
-        Button {
-            id: sendButton
-
-            onClicked: {
-                chatModel.sendMessage(messageArea.text);
-                messageArea.text = '';
+                height: 2 * documentMargins + contentItem.implicitHeight
+                Layout.fillWidth: true
             }
 
-            text: qsTr("Send")
+            Button {
+                id: sendButton
 
+                onClicked: {
+                    chatModel.sendMessage(messageArea.text);
+                    messageArea.text = '';
+                }
+
+                text: qsTr("Send")
+
+            }
         }
     }
 

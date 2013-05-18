@@ -29,24 +29,28 @@ Item {
 
     function getLast() {
         console.log("getLast");
-        var reply = update(count, reverse ? 0 : offset);
-        state = "updateLast";
-        reply.resultReady.connect(function() {
-            if (reverse)
-                flickableItem.positionViewAtIndex(flickableItem.count - 1, ListView.End);
-            state = "updateFinished";
-        });
+        if (reply) {
+            var reply = update(count, reverse ? 0 : offset);
+            state = "updateLast";
+            reply.resultReady.connect(function() {
+                if (reverse)
+                    flickableItem.positionViewAtIndex(flickableItem.count - 1, ListView.End);
+                state = "updateFinished";
+            });
+        }
         return reply;
     }
 
     function getFirst() {
         console.log("getFirst");
         var reply = update(count, reverse ? offset : 0);
-        state = "updateFirst";
-        flickableItem.currentIndex = 1;
-        reply.resultReady.connect(function() {
-            state = "updateFinished";
-        });
+        if (reply) {
+            state = "updateFirst";
+            flickableItem.currentIndex = 1;
+            reply.resultReady.connect(function() {
+                state = "updateFinished";
+            });
+        }
         return reply;
     }
 

@@ -3,20 +3,11 @@ import QtQuick 2.0
 Rectangle {
     id: root
 
-    property Item currentItem: null
+    property alias currentItem: contentLoader.item
     property bool busy: false
 
-    function replace(item) {
-        if (currentItem) {
-            currentItem.visible = false;
-        }
-        currentItem = item;
-        if (item) {
-            item.parent = root;
-            item.anchors.fill = root;
-            item.anchors.margins = mm;
-            item.visible = true;
-        }
+    function replace(component) {
+        contentLoader.sourceComponent = component;
         root.busy = true;
         root.state = currentItem ? "visible" : "hidden";
     }
@@ -24,6 +15,13 @@ Rectangle {
     state: "hidden"
     width: parent ? parent.width : 20*mm
     height: Math.max(8*mm, currentItem ? currentItem.implicitHeight : 0)
+
+    Loader {
+        id: contentLoader
+
+        anchors.fill: parent
+        anchors.margins: mm
+    }
 
     states: [
         State {

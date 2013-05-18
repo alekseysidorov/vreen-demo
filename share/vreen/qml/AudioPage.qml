@@ -69,7 +69,7 @@ SideBarItem {
         model: audioModel
 
         header: Text {
-            width: parent.width
+            width: audioView.width
             height: 50
             text: qsTr("%1 latest audio").arg(owner ? owner.name : qsTr("Unknown"))
             font.bold: true
@@ -86,7 +86,7 @@ SideBarItem {
     }
 
     ScrollDecorator {
-        flickableItem: parent
+        flickableItem: audioView
     }
 
     Updater {

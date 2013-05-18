@@ -22,40 +22,39 @@ PageStackWindow {
         anchors.fill: parent
 
         currentItem: newsPage
-        items: [
-            NewsPage { id: newsPage },
-            ProfilePage { id: myProfilePage; title: qsTr("Profile") },
-            FriendsPage {},
-            DialogsPage { id: dialogsPage },
-            AudioPage { id: audioPage }
-        ]
+
+        NewsPage { id: newsPage }
+        ProfilePage { id: myProfilePage; title: qsTr("Profile") }
+        FriendsPage {}
+        DialogsPage { id: dialogsPage }
+        AudioPage { id: audioPage }
     }
 
-    Item {
+    Component {
         id: backItem
+        Item {
 
-        visible: false
-
-        Text {
-            text: stackView.currentItem.title
-            anchors {
-                left: parent.left
-                margins: 2*mm
-                verticalCenter: parent.verticalCenter
+            Text {
+                text: stackView.currentItem ? stackView.currentItem.title : ""
+                anchors {
+                    left: parent.left
+                    margins: 2*mm
+                    verticalCenter: parent.verticalCenter
+                }
             }
-        }
 
-        Button {
-            id: backButton
+            Button {
+                id: backButton
 
-            onClicked: stackView.pop()
+                onClicked: stackView.pop()
 
-            text: qsTr("Back")
+                text: qsTr("Back")
 
-            anchors {
-                right: parent.right
-                top: parent.top
-                bottom: parent.bottom
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                    bottom: parent.bottom
+                }
             }
         }
     }

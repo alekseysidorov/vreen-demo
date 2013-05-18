@@ -16,8 +16,8 @@ SubPage {
     property alias from: root.contact
     property QtObject owner
     property string body
-    property string copyText: null
-    property variant attachments: null
+    property string copyText
+    property variant attachments
     property date date
 
     function update() {
@@ -28,38 +28,39 @@ SubPage {
     header: header
     footer: footer
 
-    RowLayout {
+    Component {
         id: header
+        RowLayout {
 
-        visible: false
-        spacing: mm
+            spacing: mm
 
-        Text {
-            text: title
+            Text {
+                text: title
 
-            Layout.fillWidth: true
-            anchors {
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-                margins: mm
+                Layout.fillWidth: true
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    margins: mm
+                }
+                elide: Text.ElideRight
             }
-            elide: Text.ElideRight
-        }
 
-        Button {
-            id: likeBtn
+            Button {
+                id: likeBtn
 
-            text: from.type === Contact.BuddyType ? qsTr("Profile") : qsTr("Group")
-        }
+                text: from.type === Contact.BuddyType ? qsTr("Profile") : qsTr("Group")
+            }
 
-        Item { width: 2*mm }
+            Item { width: 2*mm }
 
-        Button {
-            id: backButton
+            Button {
+                id: backButton
 
-            onClicked: stackView.pop()
+                onClicked: stackView.pop()
 
-            text: qsTr("Back")
+                text: qsTr("Back")
+            }
         }
     }
 
@@ -122,30 +123,31 @@ SubPage {
         }
     }
 
-    RowLayout {
+    Component {
         id: footer
+        RowLayout {
 
-        implicitHeight: messageArea.height + 2 * anchors.margins
-        anchors.margins: mm
+            implicitHeight: messageArea.height + 2 * anchors.margins
+            anchors.margins: mm
 
-        TextArea {
-            id: messageArea
+            TextArea {
+                id: messageArea
 
-            height: 2 * documentMargins + contentItem.implicitHeight
-            verticalScrollBar.visible: false
-            Layout.fillWidth: true
-        }
-
-        Button {
-            id: sendButton
-
-            onClicked: {
-                chatModel.sendMessage(messageArea.text);
-                messageArea.text = '';
+                height: 2 * documentMargins + contentItem.implicitHeight
+                Layout.fillWidth: true
             }
 
-            text: qsTr("Add comment")
+            Button {
+                id: sendButton
 
+                onClicked: {
+                    chatModel.sendMessage(messageArea.text);
+                    messageArea.text = '';
+                }
+
+                text: qsTr("Add comment")
+
+            }
         }
     }
 

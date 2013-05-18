@@ -4,8 +4,8 @@ import QtQuick.Controls 1.0
 Item {
     id: page
 
-    property Item header : backItem
-    property Item footer
+    property Component header : backItem
+    property Component footer
     property string title
     property string description
     property string iconSource

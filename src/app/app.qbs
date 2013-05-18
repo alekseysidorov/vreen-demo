@@ -4,7 +4,7 @@ Application {
     destination: "bin"
     name: "vreen-client"
 
-    Depends { name: "qt"; submodules: ["core", "quick", "widgets"] }
+    Depends { name: "Qt"; submodules: ["core", "quick", "widgets"] }
     Depends { name: "cpp" }
     Depends { name: "vreen.core" }
 

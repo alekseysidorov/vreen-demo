@@ -6,6 +6,8 @@ ListView {
     property list<SideBarItem> items
     property SideBarItem currentItem
 
+    default property alias __items: sideBar.items
+
     onCurrentItemChanged: stackView.replace(currentItem)
 
     model: items
@@ -15,9 +17,8 @@ ListView {
 
         property bool checked: currentItem == modelData
 
-        width: parent ? parent.width : 200
+        width: ListView.view.width
         height: 32
-
         color: checked ? systemPalette.highlight : "transparent"
 
         Row {
