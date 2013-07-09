@@ -21,6 +21,7 @@ Rectangle {
 
         anchors.fill: parent
         anchors.margins: mm
+        asynchronous: true
     }
 
     states: [
