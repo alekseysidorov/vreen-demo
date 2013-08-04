@@ -1,7 +1,7 @@
 import qbs.base 1.0
 
 Application {
-    destination: "bin"
+    destinationDirectory: vreen.core.binDestination
     name: "vreen-client"
 
     Depends { name: "Qt"; submodules: ["core", "quick", "widgets"] }

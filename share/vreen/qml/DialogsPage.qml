@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import com.vk.api 1.0
+import Vreen.Base 2.0
 import "components"
 import "Utils.js" as Utils
 
