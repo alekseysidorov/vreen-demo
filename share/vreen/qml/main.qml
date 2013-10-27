@@ -7,13 +7,15 @@ import QtQuick.Window 2.0
 PageStackWindow {
     id: app
 
-    Component.onCompleted: client.connectToHost()
+    Component.onCompleted: {
+        client.connectToHost();
+        visibility = "Maximized";
+    }
 
     initialItem: sideBar.currentItem
     sideBar: side
     width: 1024
     height: 800
-    visible: true
     title: qsTr("Vreen demo client - %1").arg(stackView.currentPage ? stackView.currentPage.title : qsTr("unknown"))
 
     SideBar {

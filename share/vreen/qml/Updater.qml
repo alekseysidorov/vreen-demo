@@ -29,8 +29,8 @@ Item {
 
     function getLast() {
         console.log("getLast");
+        var reply = update(count, reverse ? 0 : offset);
         if (reply) {
-            var reply = update(count, reverse ? 0 : offset);
             state = "updateLast";
             reply.resultReady.connect(function() {
                 if (reverse)

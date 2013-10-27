@@ -1,7 +1,7 @@
 import qbs.base 1.0
 
 Application {
-    destinationDirectory: vreen.core.binDestination
+    destinationDirectory: vreen_client_bin_path
     name: "vreen-client"
 
     Depends { name: "Qt"; submodules: ["core", "quick", "widgets"] }
@@ -16,6 +16,6 @@ Application {
     Group {
         fileTagsFilter: product.type
         qbs.install: true
-        qbs.installDir: vreen.core.binDestination
+        qbs.installDir: vreen_client_bin_path
     }
 }
