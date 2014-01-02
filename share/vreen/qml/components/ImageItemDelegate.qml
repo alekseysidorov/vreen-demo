@@ -34,13 +34,13 @@ ItemDelegate {
         fragmentShader: "
             varying highp vec2 qt_TexCoord0;
             uniform sampler2D source;
-            uniform float thickness;
+            uniform highp float thickness;
             void main(void)
             {
                 highp vec4 texColor = texture2D(source, qt_TexCoord0.st);
                 highp float x = 0.5 - abs(0.5 - qt_TexCoord0.x);
                 highp float y = 0.5 - abs(0.5 - qt_TexCoord0.y);
-                float factor = 1.0;
+                highp float factor = 1.0;
                 if (x < thickness) {
                     if (y > thickness)
                         factor = x / thickness;
