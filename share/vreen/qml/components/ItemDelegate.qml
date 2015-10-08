@@ -8,7 +8,7 @@ Rectangle {
     property bool showArrow: clickable
     property alias leftSideData: leftSide.data
     property int leftSideWidth: 16 * mm
-    property alias data: container.data
+    default property alias _contentChildren: container.data
 
     signal clicked;
 

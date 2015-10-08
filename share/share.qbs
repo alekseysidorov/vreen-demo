@@ -4,7 +4,7 @@ Product {
     name: "qmlContent"
     type: "installed_content"
 
-    Depends { name: "vreen.core" }
+    Depends { name: "vreen" }
 
     Group {
         name: "qml"

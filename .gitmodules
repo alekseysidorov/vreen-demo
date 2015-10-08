@@ -1,12 +1,6 @@
 [submodule "src/vreen"]
 	path = src/vreen
 	url = git://github.com/gorthauer/vreen.git
-[submodule "qbs"]
-	path = qbs
-	url = git://github.com/qutIM/qbs-labs.git
-[submodule "cmake"]
-	path = cmake
-	url = git://github.com/gorthauer/cmake-utils.git
 [submodule "share/vreen/qml/Controls"]
 	path = share/vreen/qml/Controls
 	url = https://github.com/gorthauer/Controls.Experimental.git

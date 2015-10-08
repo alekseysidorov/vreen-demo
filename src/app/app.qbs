@@ -6,7 +6,6 @@ Application {
 
     Depends { name: "Qt"; submodules: ["core", "quick", "widgets"] }
     Depends { name: "cpp" }
-    Depends { name: "vreen.core" }
 
     files: [
         "*.cpp",

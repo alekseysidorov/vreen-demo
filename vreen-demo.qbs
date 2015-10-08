@@ -11,7 +11,7 @@ Project {
         vreen_client_resources_path: vreen_client_bin_path + "/vreen-client.app/Contents/Resources"
     }
 
-    qbsSearchPaths: ["qbs", 'src/vreen']
+    qbsSearchPaths: ["qbs"]
 
     references: [
         "src/src.qbs",
