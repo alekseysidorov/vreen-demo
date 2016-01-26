@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 Item {
     id: updater
@@ -10,7 +11,7 @@ Item {
     property bool reverse: false
 
     property ListView flickableItem
-    property Component header: Text {
+    property Component header: Label {
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -18,7 +19,7 @@ Item {
         color: systemPalette.dark
         visible: updater.state === "updateFirst"
     }
-    property Component footer: Text {
+    property Component footer: Label {
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

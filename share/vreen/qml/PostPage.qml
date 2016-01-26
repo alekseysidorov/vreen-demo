@@ -34,7 +34,7 @@ SubPage {
 
             spacing: mm
 
-            Text {
+            Label {
                 text: title
 
                 Layout.fillWidth: true

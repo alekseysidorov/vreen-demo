@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 import "../components"
 
 SimpleImageItemDelegate {
@@ -10,7 +11,7 @@ SimpleImageItemDelegate {
     imageSource: "../images/media-optical-audio.png"
     leftSideWidth: 48
 
-    Text {
+    Label {
         id: titleLabel
         width: parent.width
         font.bold: true
@@ -20,7 +21,7 @@ SimpleImageItemDelegate {
         maximumLineCount: 1
     }
 
-    Text {
+    Label {
         id: descriptionLabel
         width: parent.width
         text: title
@@ -51,7 +52,7 @@ SimpleImageItemDelegate {
         }
     }
 
-    Text {
+    Label {
         id: durationLabel
 
         color: systemPalette.dark

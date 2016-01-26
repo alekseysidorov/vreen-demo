@@ -1,13 +1,18 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import Vreen.Base 2.0
+import QtQuick.Controls 1.0
 import "components"
 import "Utils.js" as Utils
 
 SideBarItem {
     id: root
 
-    title: qsTr("Dialogs")
+    title: {
+        if (dialogsModel.unreadCount > 0)
+            return qsTr("Dialogs[%1]".arg(dialogsModel.unreadCount))
+        return qsTr("Dialogs")
+    }
 
     function update() {
         updater.testAndUpdate();
@@ -36,7 +41,7 @@ SideBarItem {
 
             imageSource: contact.photoSource
 
-            Text {
+            Label {
                 id: titleLabel
                 width: parent.width
                 font.bold: true
@@ -46,7 +51,7 @@ SideBarItem {
                 maximumLineCount: 1
             }
 
-            Text {
+            Label {
                 id: descriptionLabel
                 width: parent.width
                 text: body
@@ -55,7 +60,7 @@ SideBarItem {
                 maximumLineCount: 3
             }
 
-            Text {
+            Label {
                 id: dateLabel
 
                 color: systemPalette.dark

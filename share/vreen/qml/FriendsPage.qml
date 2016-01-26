@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Vreen.Base 2.0
+import QtQuick.Controls 1.0
 import "components"
 import "Utils.js" as Utils
 
@@ -22,7 +23,7 @@ SideBarItem {
             onClicked: stackView.push(profilePage, { contact: contact })
             imageSource: contact.photoSource
 
-            Text {
+            Label {
                 id: titleLabel
                 width: parent.width
                 font.bold: true
@@ -32,7 +33,7 @@ SideBarItem {
                 maximumLineCount: 1
             }
 
-            Text {
+            Label {
                 id: descriptionLabel
                 width: parent.width
                 text: contact.activity

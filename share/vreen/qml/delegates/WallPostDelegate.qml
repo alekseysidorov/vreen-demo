@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Vreen.Base 2.0
 import QtQuick.Controls 1.0
+
 import "../components"
 import "../attachments" as Attach
 import "../Utils.js" as Utils
@@ -93,7 +94,7 @@ ImageItemDelegate {
         active: owner
     }
 
-    Text {
+    Label {
         id: descriptionLabel
         width: parent.width
         text: body
@@ -106,7 +107,7 @@ ImageItemDelegate {
         model: attachments
     }
 
-    Text {
+    Label {
         id: dateLabel
 
         color: systemPalette.dark
@@ -130,7 +131,7 @@ ImageItemDelegate {
             width: parent.width
             spacing: mm
 
-            Text {
+            Label {
                 text: qsTr("Reposts: %1, likes: %2, comments: %3").arg(reposts.count).arg(likes.count).arg(comments.count)
             }
         }

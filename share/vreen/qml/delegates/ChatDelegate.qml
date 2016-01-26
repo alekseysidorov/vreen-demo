@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Vreen.Base 2.0
+import QtQuick.Controls 1.0
 import "../components"
 import "../attachments" as Attach
 import "../Utils.js" as Utils
@@ -12,7 +13,7 @@ ImageItemDelegate {
     imageSource: from.photoSource
     clickable: true
 
-    Text {
+    Label {
         id: titleLabel
         width: parent.width
         font.bold: true
@@ -22,7 +23,7 @@ ImageItemDelegate {
         maximumLineCount: 1
     }
 
-    Text {
+    Label {
         id: descriptionLabel
         width: parent.width
         text: body
@@ -35,7 +36,7 @@ ImageItemDelegate {
         model: attachments
     }
 
-    Text {
+    Label {
         id: dateLabel
 
         color: systemPalette.dark

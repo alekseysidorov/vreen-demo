@@ -1,6 +1,8 @@
 import QtQuick 2.2
 import Vreen.Base 2.0
 import QtMultimedia 5.0
+import QtQuick.Controls 1.3
+
 import "components"
 import "delegates"
 
@@ -68,7 +70,7 @@ SideBarItem {
         anchors.fill: parent
         model: audioModel
 
-        header: Text {
+        header: Label {
             width: audioView.width
             height: 50
             text: qsTr("%1 latest audio").arg(owner ? owner.name : qsTr("Unknown"))

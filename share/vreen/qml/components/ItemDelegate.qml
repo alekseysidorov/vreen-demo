@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 Rectangle {
     id: root
@@ -55,7 +56,7 @@ Rectangle {
         }
     }
 
-    Text {
+    Label {
         id: arrow
 
         width: showArrow ? implicitWidth : 0

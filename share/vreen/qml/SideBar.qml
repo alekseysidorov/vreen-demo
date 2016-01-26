@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.3
 
 ListView {
     id: sideBar
@@ -34,7 +35,7 @@ ListView {
                 source: modelData.iconSource
             }
 
-            Text {
+            Label {
                 id: label
                 text: modelData.title
                 color: checked ? systemPalette.highlightedText : systemPalette.buttonText

@@ -14,7 +14,7 @@ Rectangle {
 
     state: "hidden"
     width: parent ? parent.width : 20*mm
-    height: Math.max(8*mm, currentItem ? currentItem.implicitHeight : 0)
+    height: Math.max(8*mm, currentItem ? currentItem.implicitHeight : 0) + 4 * mm
 
     Loader {
         id: contentLoader

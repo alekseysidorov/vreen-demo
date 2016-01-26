@@ -2,7 +2,7 @@ import QtQuick 2.1
 import Vreen.Base 2.0
 import "components"
 import "delegates"
-import QtQuick.Controls 1.0
+import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.0
 import "Utils.js" as Utils
@@ -28,7 +28,12 @@ SubPage {
 
         anchors.fill: parent
         model: chatModel
-        delegate: ChatDelegate {}
+        delegate: ChatDelegate {
+            onVisibleChanged: {
+                if (visible && modelData.incoming)
+                    chatModel.markAsRead(modelData.mid, true)
+            }
+        }
 
         ScrollDecorator {
             flickableItem: parent
